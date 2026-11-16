@@ -1,0 +1,59 @@
+# Deploys to Railway on every push to main. Only the service whose folder changed is rebuilt.
+# Needs one repository secret: RAILWAY_TOKEN, a project token for the fragrance-vault project
+# (Railway → project → Settings → Tokens → create a token for the "production" environment).
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: railway-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      cms: ${{ steps.filter.outputs.cms }}
+      web: ${{ steps.filter.outputs.web }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            cms:
+              - 'cms/**'
+            web:
+              - 'web/**'
+
+  deploy:
+    needs: changes
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [cms, web]
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    steps:
+      - name: Skip unchanged service
+        id: gate
+        run: |
+          changed='${{ needs.changes.outputs[matrix.service] }}'
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then changed=true; fi
+          if [ -z "$RAILWAY_TOKEN" ]; then echo "::warning::RAILWAY_TOKEN secret is not set, skipping deploy."; changed=false; fi
+          echo "go=$changed" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.go == 'true'
+      - name: Install Railway CLI
+        if: steps.gate.outputs.go == 'true'
+        run: npm install -g @railway/cli
+      - name: Deploy ${{ matrix.service }}
+        if: steps.gate.outputs.go == 'true'
+        env:
+          MSG: ${{ github.event.head_commit.message || 'Manual deploy' }}
+        # the commit message goes through an env var so quotes in it can't break the shell
+        run: railway up "${{ matrix.service }}" --path-as-root --service "${{ matrix.service }}" --ci -m "${MSG%%$'\n'*}"

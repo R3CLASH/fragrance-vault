@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: { params: P }) {
         <div className="pdp"><BuyBox p={p} /></div>
         <div className="acc" style={{ maxWidth: 760, marginBottom: 80 }}>
           {html ? <details open><summary>About this scent</summary><div className="prose" dangerouslySetInnerHTML={{ __html: html }} /></details> : null}
-          <details open={!html}><summary>Delivery</summary><div className="prose"><p>Secure insured shipping islandwide. You will get an email at every step, and you can track your order any time.</p></div></details>
+          <details open={!html}><summary>Delivery</summary><div className="prose"><p>Secure insured shipping islandwide. You will get an email at every step, with a link to follow your order.</p></div></details>
           <details><summary>Authenticity</summary><div className="prose"><p>Every bottle in the vault is an authentic product.</p></div></details>
         </div>
       </div>

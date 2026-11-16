@@ -20,13 +20,13 @@ function Inner() {
       // after a card payment, the gateway's confirmation can arrive a few seconds later
       if (r.data && r.data.status === 'pending_payment' && tries++ < 6) setTimeout(load, 4000);
     };
-    if (token) load(); else setError('This link is missing its access code. Use “Track an order” with your email instead.');
+    if (token) load(); else setError('This link is missing its access code. Open the link from your order email, or contact us and we will help.');
     return () => { alive = false; };
   }, [code, token]);
   return (
     <div className="page"><div className="wrap">
       <div className="page-head"><span className="eyebrow">Your order</span><h1>{order ? 'Locked in the vault' : 'Your order'}</h1></div>
-      {error ? <div className="empty"><p className="notice error">{error}</p><Link className="btn" href="/track">Track an order</Link></div> : order ? <OrderView o={order} fresh /> : <p className="lead">Opening your order…</p>}
+      {error ? <div className="empty"><p className="notice error">{error}</p><Link className="btn" href="/contact-us">Contact us</Link></div> : order ? <OrderView o={order} fresh /> : <p className="lead">Opening your order…</p>}
     </div></div>
   );
 }

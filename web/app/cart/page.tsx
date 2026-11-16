@@ -1,29 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useCart } from '@/components/cart';
+import { useCart, useQuote } from '@/components/cart';
 import { money } from '@/lib/format';
-import { post, type Quote } from '@/lib/store-client';
 
 export default function CartPage() {
   const { items, ready, setQty, remove } = useCart();
-  const [quote, setQuote] = useState<Quote | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!ready || !items.length) { setQuote(null); return; }
-    const t = setTimeout(async () => {
-      const r = await post<Quote>('/api/quote', { items: items.map((i) => ({ id: i.id, variant: i.variant, quantity: i.qty })) });
-      setQuote(r.data); setError(r.error);
-    }, 250);
-    return () => clearTimeout(t);
-  }, [items, ready]);
+  const { quote, error, problem, live } = useQuote();
 
   if (!ready) return <div className="page"><div className="wrap"><p className="lead">Opening your vault…</p></div></div>;
-
-  const problem = (i: { id: string; variant: string | null }) => quote?.problems.find((p) => p.id === i.id && (p.variant ?? null) === (i.variant ?? null))?.message;
-  const live = (i: { id: string; variant: string | null }) => quote?.lines.find((l) => l.id === i.id && l.variant === i.variant);
 
   return (
     <div className="page">

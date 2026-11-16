@@ -51,7 +51,6 @@ export default function Footer({ logo, global: g, pages, categories }: { logo: s
         </nav>
         <nav className="foot-col" aria-label="The house">
           <span className="eyebrow">The house</span>
-          <Link href="/track">Track an order</Link>
           {pages.slice(0, 6).map((p) => <Link key={p.slug} href={`/${p.slug}`}>{p.title}</Link>)}
           {social.map(([n, u]) => <a key={n} href={u}>{n}</a>)}
         </nav>

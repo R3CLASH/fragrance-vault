@@ -26,9 +26,13 @@ export function scrollToY(y: number, immediate = false) {
   else window.scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
 }
 
-export function lockScroll(locked: boolean) {
-  if (lenis) (locked ? lenis.stop() : lenis.start());
-  document.documentElement.style.overflow = locked ? 'hidden' : '';
+const locks = new Set<string>();
+/** Freeze page scrolling while any overlay (menu, bag drawer…) holds a lock under its own key. */
+export function lockScroll(key: string, locked: boolean) {
+  if (locked) locks.add(key); else locks.delete(key);
+  const on = locks.size > 0;
+  if (lenis) (on ? lenis.stop() : lenis.start());
+  document.documentElement.style.overflow = on ? 'hidden' : '';
 }
 
 export function startScroll(): () => void {

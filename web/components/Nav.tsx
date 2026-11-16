@@ -9,7 +9,7 @@ import { lockScroll, onFrame } from '@/lib/scroll';
 const LINKS = [
   { href: '/', label: 'Home', key: 'home' },
   { href: '/shop', label: 'The Vault', key: 'shop' },
-  { href: '/track', label: 'Track order', key: 'track' },
+  { href: '/about-us', label: 'About', key: 'about' },
   { href: '/contact-us', label: 'Contact', key: 'contact' },
 ];
 
@@ -26,16 +26,16 @@ const Lock = ({ s = 16 }: { s?: number }) => (
 
 export default function Nav({ logo, siteName, categories }: { logo: string; siteName: string; categories: { name: string; slug: string }[] }) {
   const path = usePathname() || '/';
-  const { count, ready } = useCart();
+  const { count, ready, setDrawer } = useCart();
   const [open, setOpen] = useState(false);
   const [origin, setOrigin] = useState({ x: '90%', y: '40px' });
   const root = useRef<HTMLDivElement>(null);
   const hover = useRef<HTMLAnchorElement | null>(null);
-  const active = path === '/' ? 'home' : path.startsWith('/shop') || path.startsWith('/product') ? 'shop' : path.startsWith('/track') || path.startsWith('/order') ? 'track' : path.startsWith('/contact') ? 'contact' : '';
+  const active = path === '/' ? 'home' : path.startsWith('/shop') || path.startsWith('/product') ? 'shop' : path.startsWith('/about') ? 'about' : path.startsWith('/contact') ? 'contact' : '';
 
   useEffect(() => setOpen(false), [path]);
   useEffect(() => {
-    lockScroll(open);
+    lockScroll('menu', open);
     const esc = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', esc);
     return () => window.removeEventListener('keydown', esc);
@@ -50,10 +50,10 @@ export default function Nav({ logo, siteName, categories }: { logo: string; site
     return () => window.removeEventListener('fv:added', pulse);
   }, []);
 
-  // scroll dial, % readout, sliding marker
+  // scroll dial on the menu button, sliding marker
   useEffect(() => {
     const el = root.current; if (!el) return;
-    const arcs = el.querySelectorAll<HTMLElement>('[data-arc]'), pcts = el.querySelectorAll<HTMLElement>('[data-pct]'), ticks = el.querySelectorAll<HTMLElement>('[data-ticks]');
+    const arcs = el.querySelectorAll<HTMLElement>('[data-arc]'), ticks = el.querySelectorAll<HTMLElement>('[data-ticks]');
     const bar = el.querySelector<HTMLElement>('.nav-bar'), marker = el.querySelector<HTMLElement>('.nav-marker');
     let deg0 = -1, solid: boolean | null = null, lastT: HTMLElement | null | undefined, lastW = 0;
     return onFrame((f) => {
@@ -61,7 +61,6 @@ export default function Nav({ logo, siteName, categories }: { logo: string; site
       if (deg !== deg0) {
         deg0 = deg;
         arcs.forEach((a) => (a.style.background = `conic-gradient(#F6E27A ${deg}deg, transparent ${deg}deg)`));
-        pcts.forEach((a) => (a.textContent = String(Math.round(p * 99)).padStart(2, '0')));
         ticks.forEach((a) => (a.style.transform = `rotate(${p * 1080}deg)`));
       }
       if (solid !== f.y > 30) { solid = f.y > 30; bar?.classList.toggle('solid', solid); }
@@ -84,6 +83,11 @@ export default function Nav({ logo, siteName, categories }: { logo: string; site
     </button>
   );
   const bag = ready ? count : 0;
+  // the bag opens as a drawer; the /cart link stays as the fallback (and for new-tab clicks)
+  const openBag = (e: React.MouseEvent) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault(); setOpen(false); setDrawer(true);
+  };
 
   return (
     <div ref={root}>
@@ -97,15 +101,13 @@ export default function Nav({ logo, siteName, categories }: { logo: string; site
           <span className="nav-marker" aria-hidden="true" />
         </nav>
         <div className="nav-right">
-          <span className="nav-pct" aria-hidden="true">DIAL <b data-pct>00</b></span>
-          <Link className="nav-bag" data-bag href="/cart" aria-label={`Your vault, ${bag} items`}><Lock /><span>Vault · {bag}</span></Link>
+          <Link className="nav-bag" data-bag href="/cart" onClick={openBag} aria-haspopup="dialog" aria-label={`Your vault, ${bag} items`}><Lock /><span>Vault · {bag}</span></Link>
           {dial()}
         </div>
       </header>
 
       <header className="nav-top">
         <Link href="/" aria-label={`${siteName} home`}><img src={logo} alt={siteName} width={126} height={36} /></Link>
-        <span className="nav-pct" aria-hidden="true">DIAL <b data-pct>00</b></span>
       </header>
       <nav className="dock" aria-label="Quick links">
         <Link href="/" className={active === 'home' ? 'on' : ''}>
@@ -115,18 +117,18 @@ export default function Nav({ logo, siteName, categories }: { logo: string; site
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" /><circle cx="12" cy="12" r="3.5" /></svg><span>Vault</span>
         </Link>
         <div className="mid">{dial('big')}</div>
-        <Link href="/track" className={active === 'track' ? 'on' : ''}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z" /><circle cx="7" cy="18" r="1.6" /><circle cx="17" cy="18" r="1.6" /></svg><span>Track</span>
+        <Link href="/contact-us" className={active === 'contact' ? 'on' : ''}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3.5 6.5l8.5 7 8.5-7" /></svg><span>Contact</span>
         </Link>
-        <Link href="/cart" data-bag aria-label={`Bag, ${bag} items`}><Lock s={20} /><span>Bag · {bag}</span></Link>
+        <Link href="/cart" data-bag onClick={openBag} aria-haspopup="dialog" aria-label={`Bag, ${bag} items`}><Lock s={20} /><span>Bag · {bag}</span></Link>
       </nav>
 
       <div id="site-menu" data-lenis-prevent className={`menu ${open ? 'open' : ''}`} style={{ ['--ox' as string]: origin.x, ['--oy' as string]: origin.y }} aria-hidden={!open}>
         <div className="menu-dial" />
         <nav aria-label="Menu">
           <span className="eyebrow" style={{ marginBottom: 14 }}>Choose a door</span>
-          {[{ href: '/', t: 'Home' }, { href: '/shop', t: 'The Vault' }, { href: '/cart', t: `Your bag (${bag})` }, { href: '/track', t: 'Track an order' }, { href: '/about-us', t: 'About us' }, { href: '/contact-us', t: 'Contact' }].map((l, i) => (
-            <Link key={l.href} href={l.href} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+          {[{ href: '/', t: 'Home' }, { href: '/shop', t: 'The Vault' }, { href: '/cart', t: `Your bag (${bag})` }, { href: '/about-us', t: 'About us' }, { href: '/contact-us', t: 'Contact' }].map((l, i) => (
+            <Link key={l.href} href={l.href} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1} onClick={l.href === '/cart' ? openBag : () => setOpen(false)}>
               <span>0{i + 1}</span>{l.t}
             </Link>
           ))}
