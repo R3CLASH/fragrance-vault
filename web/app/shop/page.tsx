@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import ShopWheel from '@/components/ShopWheel';
+import ShopFilters from '@/components/ShopFilters';
 import { Drawers } from '@/components/Motion';
 import { getBrands, getCategories, getProducts } from '@/lib/strapi';
 
@@ -16,7 +17,6 @@ export async function generateMetadata({ searchParams }: { searchParams: SP }): 
 }
 
 const TINTS: Record<string, string> = { 'for-him': '#8FD0F0', 'for-her': '#F08AC8', unisex: '#F6E27A' };
-const SORTS = [['', 'Newest'], ['price-asc', 'Price: low to high'], ['price-desc', 'Price: high to low'], ['name', 'Name']];
 
 export default async function Shop({ searchParams }: { searchParams: SP }) {
   const sp = await searchParams;
@@ -25,11 +25,6 @@ export default async function Shop({ searchParams }: { searchParams: SP }) {
     getCategories(),
     getBrands(),
   ]);
-  const link = (patch: Record<string, string | undefined>) => {
-    const next = { ...sp, ...patch };
-    const qs = Object.entries(next).filter(([, v]) => v).map(([k, v]) => `${k}=${encodeURIComponent(v as string)}`).join('&');
-    return `/shop${qs ? `?${qs}` : ''}`;
-  };
   const filtered = !!(sp.category || sp.brand || sp.gender || sp.q);
   const tint = TINTS[sp.gender || ''] || (sp.category === 'for-her' ? TINTS['for-her'] : sp.category === 'for-him' ? TINTS['for-him'] : '#FF9E3D');
   const heading = sp.brand ? brands.find((b) => b.slug === sp.brand)?.name : sp.category ? categories.find((c) => c.slug === sp.category)?.name : null;
@@ -45,40 +40,9 @@ export default async function Shop({ searchParams }: { searchParams: SP }) {
         <div className="shop-canvas"><ShopWheel filtered={filtered} tint={tint} /></div>
       </div>
 
-      <div className="filters">
-        <div className="wrap">
-          <div className="filter-row" role="group" aria-label="Range">
-            <span>Range</span>
-            <Link className={`chip ${!sp.category ? 'on' : ''}`} href={link({ category: undefined })}>All</Link>
-            {categories.map((c) => <Link key={c.slug} className={`chip ${sp.category === c.slug ? 'on' : ''}`} href={link({ category: c.slug })}>{c.name}</Link>)}
-          </div>
-          <div className="filter-row" role="group" aria-label="House">
-            <span>House</span>
-            <Link className={`chip ${!sp.brand ? 'on' : ''}`} href={link({ brand: undefined })}>All</Link>
-            {brands.map((b) => <Link key={b.slug} className={`chip ${sp.brand === b.slug ? 'on' : ''}`} href={link({ brand: b.slug })}>{b.name}</Link>)}
-          </div>
-          <div className="filter-row">
-            <form className="search" action="/shop" role="search">
-              {sp.category ? <input type="hidden" name="category" value={sp.category} /> : null}
-              {sp.brand ? <input type="hidden" name="brand" value={sp.brand} /> : null}
-              <label className="sr" htmlFor="q">Search perfumes</label>
-              <input id="q" name="q" type="search" placeholder="Search the vault" defaultValue={sp.q || ''} />
-              <button className="btn" type="submit" style={{ minHeight: 46, padding: '0 18px' }}>Search</button>
-            </form>
-            <form className="sort" action="/shop">
-              {Object.entries(sp).filter(([k, v]) => k !== 'sort' && v).map(([k, v]) => <input key={k} type="hidden" name={k} value={v as string} />)}
-              <label htmlFor="sort" className="label">Sort</label>
-              <select id="sort" name="sort" defaultValue={sp.sort || ''}>
-                {SORTS.map(([v, t]) => <option key={v} value={v}>{t}</option>)}
-              </select>
-              <button className="btn" type="submit" style={{ minHeight: 46, padding: '0 16px' }}>Apply</button>
-            </form>
-            <span style={{ fontSize: 14, color: 'var(--mute)' }}>{products.length} {products.length === 1 ? 'box' : 'boxes'}</span>
-          </div>
-        </div>
-      </div>
+      <ShopFilters sp={sp} categories={categories} brands={brands} count={products.length} />
 
-      <div className="wrap section" style={{ paddingTop: 48 }}>
+      <div className="wrap section" style={{ paddingTop: 40 }}>
         {products.length ? (
           <Drawers>
             {products.map((p, i) => <div key={p.id}><div><ProductCard p={p} i={i} /></div></div>)}
