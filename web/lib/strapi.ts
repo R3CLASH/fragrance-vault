@@ -1,7 +1,8 @@
 // Small data layer between the storefront and the Strapi CMS.
 // Every function returns safe fallbacks, so pages still render if the CMS is briefly unreachable.
 
-const STRAPI_URL = process.env.STRAPI_URL || 'http://127.0.0.1:1337';
+// At runtime prefer the CMS's private address (no public egress, faster); builds can't reach it, so they use STRAPI_URL.
+export const STRAPI_URL = process.env.STRAPI_INTERNAL_URL || process.env.STRAPI_URL || 'http://127.0.0.1:1337';
 const TOKEN = process.env.STRAPI_API_TOKEN || '';
 
 export type Media = { url: string; alt: string; width?: number; height?: number };

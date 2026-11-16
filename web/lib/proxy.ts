@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-
-const STRAPI_URL = process.env.STRAPI_URL || 'http://127.0.0.1:1337';
+import { STRAPI_URL } from './strapi';
 
 /** Forwards a store request to Strapi, so the browser only ever talks to this site. */
 export async function forward(req: Request, path: string) {
