@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payment_methods",
+  "info": {
+    "singularName": "payment-method",
+    "pluralName": "payment-methods",
+    "displayName": "Payment method",
+    "description": "Checkout payment options, like WooCommerce payment gateways"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "bank_transfer",
+        "cash_on_delivery",
+        "payhere",
+        "koko",
+        "payzy",
+        "manual"
+      ],
+      "required": true,
+      "default": "manual"
+    },
+    "description": {
+      "type": "text"
+    },
+    "instructions": {
+      "type": "richtext"
+    },
+    "feePercent": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "feeFixed": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "minimumOrder": {
+      "type": "decimal",
+      "min": 0
+    },
+    "maximumOrder": {
+      "type": "decimal",
+      "min": 0
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0
+    },
+    "testMode": {
+      "type": "boolean",
+      "default": true
+    },
+    "config": {
+      "type": "json",
+      "private": true
+    }
+  }
+}

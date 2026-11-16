@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_order_status_entry",
+  "info": {
+    "displayName": "Status history entry",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "status": {
+      "type": "string"
+    },
+    "note": {
+      "type": "text"
+    },
+    "at": {
+      "type": "datetime"
+    },
+    "by": {
+      "type": "string"
+    }
+  }
+}

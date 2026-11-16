@@ -1,0 +1,139 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": "Perfumes and other products"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "sku": {
+      "type": "string",
+      "unique": true
+    },
+    "price": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "salePrice": {
+      "type": "decimal",
+      "min": 0
+    },
+    "saleStartsAt": {
+      "type": "datetime"
+    },
+    "saleEndsAt": {
+      "type": "datetime"
+    },
+    "shortDescription": {
+      "type": "text"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "for-him",
+        "for-her",
+        "unisex"
+      ]
+    },
+    "size": {
+      "type": "string"
+    },
+    "concentration": {
+      "type": "string"
+    },
+    "topNotes": {
+      "type": "string"
+    },
+    "heartNotes": {
+      "type": "string"
+    },
+    "baseNotes": {
+      "type": "string"
+    },
+    "accent": {
+      "type": "string",
+      "regex": "^#[0-9A-Fa-f]{6}$"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "manageStock": {
+      "type": "boolean",
+      "default": true
+    },
+    "stock": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "inStock": {
+      "type": "boolean",
+      "default": true
+    },
+    "lowStockThreshold": {
+      "type": "integer",
+      "default": 3
+    },
+    "weightGrams": {
+      "type": "integer"
+    },
+    "variants": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.variant"
+    },
+    "related": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "wooId": {
+      "type": "integer",
+      "private": true
+    }
+  }
+}

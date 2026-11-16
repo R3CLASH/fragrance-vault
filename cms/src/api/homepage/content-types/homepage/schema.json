@@ -1,0 +1,82 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroEyebrow": {
+      "type": "string"
+    },
+    "heroTitle": {
+      "type": "string"
+    },
+    "heroHighlight": {
+      "type": "string"
+    },
+    "heroText": {
+      "type": "text"
+    },
+    "chapterEyebrow": {
+      "type": "string"
+    },
+    "chapterTitle": {
+      "type": "string"
+    },
+    "chapterText": {
+      "type": "text"
+    },
+    "boxesEyebrow": {
+      "type": "string"
+    },
+    "boxesTitle": {
+      "type": "string"
+    },
+    "comboEyebrow": {
+      "type": "string"
+    },
+    "comboTitle": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.step",
+      "max": 3
+    },
+    "ctaTitle": {
+      "type": "string"
+    },
+    "ctaText": {
+      "type": "text"
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "featuredProduct": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "featuredProducts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    },
+    "marqueeWords": {
+      "type": "string"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

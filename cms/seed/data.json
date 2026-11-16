@@ -1,0 +1,1398 @@
+{
+ "products": [
+  {
+   "wooId": 1550,
+   "name": "Rayhaan Palawan",
+   "slug": "rayhaan-palawan",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Olfactory family: citrus, fresh, woody. Top notes of calamansi, grapefruit, pineapple and yellow mandarin; heart of orange blossom, fig and pomarose.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1548,
+   "name": "Rasasi Hawas Ice Freeze",
+   "slug": "rasasi-hawas-ice-freeze",
+   "price": 14500.0,
+   "salePrice": null,
+   "shortDescription": "Hawas Ice Freeze by Rasasi is an aromatic fragrance for men, launched in 2026.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": "icefreeze.webp",
+   "featured": true,
+   "topNotes": "Mandarin, orange, bergamot",
+   "heartNotes": "Ginger, lily of the valley, mint",
+   "baseNotes": "Musk, sandalwood, ambergris",
+   "accent": "#8FD0F0"
+  },
+  {
+   "wooId": 1546,
+   "name": "Rayhaan Vantage",
+   "slug": "rayhaan-vantage",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Vantage by Rayhaan is a woody spicy fragrance for women and men, launched in 2026.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1544,
+   "name": "Rayhaan Amazonica",
+   "slug": "rayhaan-amazonica",
+   "price": 9000.0,
+   "salePrice": null,
+   "shortDescription": "A bold fusion of fresh citrus, warm spices and modern woods. A vibrant unisex fragrance.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1475,
+   "name": "Rayhaan Pacific Aloha",
+   "slug": "rayhaan-pacific-aloha",
+   "price": 7900.0,
+   "salePrice": null,
+   "shortDescription": "Pacific Aloha by Rayhaan is an aromatic fruity fragrance for women and men, launched in 2026.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1452,
+   "name": "Lattafa Asad Elixir",
+   "slug": "lattafa-asad-elixir",
+   "price": 14500.0,
+   "salePrice": null,
+   "shortDescription": "Asad Elixir by Lattafa Perfumes is an oriental fragrance for men, launched in 2025.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1425,
+   "name": "Rasasi Hawas Chrome",
+   "slug": "rasasi-hawas-chrome",
+   "price": 13500.0,
+   "salePrice": null,
+   "shortDescription": "Top notes of yellow fruits, peach and orange, followed by water fruits and mango.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1344,
+   "name": "French Avenue Atlantis Extrait",
+   "slug": "french-avenue-atlantis-extrait",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Atlantis Extrait by French Avenue is an aromatic aquatic fragrance for women and men, launched in 2025.",
+   "brand": "French Avenue",
+   "collections": [
+    "For Her",
+    "For Him",
+    "French Avenue"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1307,
+   "name": "Freeze by Riffs",
+   "slug": "freeze-by-riffs",
+   "price": 17500.0,
+   "salePrice": 15800.0,
+   "shortDescription": "Freeze by Riiffs Perfumes is a floral fruity fragrance for women and men, launched in 2025.",
+   "brand": "Riiffs",
+   "collections": [
+    "Riffs"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1248,
+   "name": "Armaf Odyssey Mega Man",
+   "slug": "armaf-odyssey-mega-man",
+   "price": 11500.0,
+   "salePrice": null,
+   "shortDescription": "Odyssey Mega Man by Armaf is a woody aromatic fragrance for men, launched in 2023.",
+   "brand": "Armaf",
+   "collections": [
+    "Armaf",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1239,
+   "name": "Momento by Riffs",
+   "slug": "momento-by-riffs",
+   "price": 16500.0,
+   "salePrice": null,
+   "shortDescription": "Momento by Riiffs Perfumes is a woody spicy fragrance for women and men, launched in 2025.",
+   "brand": "Riiffs",
+   "collections": [
+    "Riffs"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1230,
+   "name": "French Avenue FireStorm",
+   "slug": "french-avenue-firestorm",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Firestorm Extrait by French Avenue is an oriental floral fragrance for women and men, launched in 2025.",
+   "brand": "French Avenue",
+   "collections": [
+    "For Her",
+    "For Him",
+    "French Avenue"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1212,
+   "name": "Lattafa Teriaq Intense",
+   "slug": "lattafa-teriaq-intense",
+   "price": 15500.0,
+   "salePrice": null,
+   "shortDescription": "Teriaq Intense by Lattafa Perfumes is an oriental spicy fragrance for women and men, launched in 2024.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1209,
+   "name": "Mancera French Riviera",
+   "slug": "mancera-french-riviera",
+   "price": 35000.0,
+   "salePrice": null,
+   "shortDescription": "French Riviera by Mancera is an aromatic aquatic fragrance for women and men, launched in 2022.",
+   "brand": "Mancera",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Mancera"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1208,
+   "name": "Mancera Instant Crush",
+   "slug": "mancera-instant-crush",
+   "price": 34500.0,
+   "salePrice": null,
+   "shortDescription": "Instant Crush by Mancera is an oriental floral fragrance for women and men, launched in 2019.",
+   "brand": "Mancera",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Mancera"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1207,
+   "name": "Mancera Cedrat Boise Intense",
+   "slug": "mancera-cedrat-boise-intense",
+   "price": 35500.0,
+   "salePrice": null,
+   "shortDescription": "Intense Cedrat Boise by Mancera is an oriental woody fragrance for men, launched in 2021.",
+   "brand": "Mancera",
+   "collections": [
+    "For Him",
+    "Mancera"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1205,
+   "name": "Mancera Cedrat Boise",
+   "slug": "mancera-cedrat-boise",
+   "price": 34000.0,
+   "salePrice": null,
+   "shortDescription": "Cedrat Boise by Mancera is a citrus aromatic fragrance for women and men, launched in 2011.",
+   "brand": "Mancera",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Mancera"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1204,
+   "name": "Club de Nuit Sillage",
+   "slug": "club-de-nuit-sillage",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Club de Nuit Sillage by Armaf is a floral woody musk fragrance for women and men, launched in 2020.",
+   "brand": "Armaf",
+   "collections": [
+    "Armaf",
+    "For Her",
+    "For Him"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1202,
+   "name": "Club de Nuit Untold",
+   "slug": "club-de-nuit-untold",
+   "price": 15600.0,
+   "salePrice": null,
+   "shortDescription": "Club de Nuit Untold by Armaf is a fragrance for women and men, launched in 2022.",
+   "brand": "Armaf",
+   "collections": [
+    "Armaf",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1200,
+   "name": "Club de Nuit Blue Iconic",
+   "slug": "club-de-nuit-blue-iconic",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Club de Nuit Blue Iconic by Armaf is a fragrance for men, launched in 2022.",
+   "brand": "Armaf",
+   "collections": [
+    "Armaf",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1199,
+   "name": "Davidoff Cool Water Intense EDP 125ml",
+   "slug": "davidoff-cool-water-intense-edp-125ml",
+   "price": 18500.0,
+   "salePrice": null,
+   "shortDescription": "Cool Water Intense by Davidoff is a fragrance for men, launched in 2019.",
+   "brand": "Davidoff",
+   "collections": [
+    "Davidoff",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1187,
+   "name": "Cool Water Davidoff EDT 125ml",
+   "slug": "cool-water-davidoff-edt",
+   "price": 11500.0,
+   "salePrice": null,
+   "shortDescription": "Cool Water by Davidoff is an aromatic aquatic fragrance for men, launched in 1988.",
+   "brand": "Davidoff",
+   "collections": [
+    "Davidoff",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "EDT",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1142,
+   "name": "French Avenue Liquid Brun",
+   "slug": "french-avenue-liquid-brun",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Woody fragrance from 2024 with cinnamon, orange blossom, cardamom, vanilla, praline, ambroxan and musk.",
+   "brand": "French Avenue",
+   "collections": [
+    "For Her",
+    "For Him",
+    "French Avenue"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1141,
+   "name": "Khadlaj Island Vanilla Dunes",
+   "slug": "khadlaj-island-vanilla-dunes",
+   "price": 12000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex oriental vanilla fragrance from 2025 with vanilla, cinnamon, cardamom, orange blossom, praline and musk.",
+   "brand": "Khadlaj",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Khadlaj"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1140,
+   "name": "Khadlaj Island Dreams",
+   "slug": "khadlaj-island-dreams",
+   "price": 12500.0,
+   "salePrice": null,
+   "shortDescription": "Unisex oriental fragrance from 2025 with ginger, bergamot, grapefruit, musk and ambroxan.",
+   "brand": "Khadlaj",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Khadlaj"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1139,
+   "name": "Khadlaj Island",
+   "slug": "khadlaj-island",
+   "price": 12000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex fragrance from 2024 with pineapple, iris, ginger, coconut, tonka, sandalwood and ambergris.",
+   "brand": "Khadlaj",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Khadlaj"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1138,
+   "name": "Afnan 9am Dive",
+   "slug": "afnan-9am-dive",
+   "price": 13500.0,
+   "salePrice": null,
+   "shortDescription": "Unisex aromatic aquatic fragrance from 2022 with lemon, mint, apple, cedar, incense and sandalwood.",
+   "brand": "Afnan",
+   "collections": [
+    "Afnan",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1137,
+   "name": "Afnan 9pm",
+   "slug": "afnan-9pm-2",
+   "price": 12500.0,
+   "salePrice": null,
+   "shortDescription": "Oriental vanilla fragrance from 2020 with apple, cinnamon, lavender, vanilla, tonka bean and amber.",
+   "brand": "Afnan",
+   "collections": [
+    "Afnan",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1136,
+   "name": "Afnan 9pm Elixir",
+   "slug": "afnan-9pm-elixir",
+   "price": 16500.0,
+   "salePrice": null,
+   "shortDescription": "Unisex oriental spicy fragrance from 2025 with cardamom, pimento, leather, vanilla, patchouli and labdanum.",
+   "brand": "Afnan",
+   "collections": [
+    "Afnan",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1135,
+   "name": "Afnan 9 PM Rebel",
+   "slug": "afnan-9-pm-rebel",
+   "price": 15500.0,
+   "salePrice": null,
+   "shortDescription": "Unisex aromatic fruity fragrance from 2024 with pineapple, apple, mandarin, cedarwood, vanilla and musk.",
+   "brand": "Afnan",
+   "collections": [
+    "Afnan",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1125,
+   "name": "Club de Nuit Intense Man EDT 105ml",
+   "slug": "club-de-nuit-intense-man-edt-105ml",
+   "price": 13500.0,
+   "salePrice": null,
+   "shortDescription": "Woody spicy fragrance from 2015 with lemon, pineapple, birch, rose, musk and ambergris.",
+   "brand": "Armaf",
+   "collections": [
+    "Armaf",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "EDT",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1090,
+   "name": "Afnan 9PM Night Out",
+   "slug": "afnan-9pm-night-out",
+   "price": 21500.0,
+   "salePrice": null,
+   "shortDescription": "Unisex oriental spicy fragrance from 2026 with pitahaya, toffee, cardamom, tonka bean and patchouli.",
+   "brand": "Afnan",
+   "collections": [
+    "Afnan",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1063,
+   "name": "Atlas by Lattafa Perfumes",
+   "slug": "atlas-by-lattafa-perfumes",
+   "price": 13000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex fragrance from 2024 with sea notes, salt, lemon, davana, iris, ambergris and oakmoss.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1062,
+   "name": "Afnan Supremacy Collector's Edition 100ml EDP",
+   "slug": "afnan-supremacy-collectors-edition-100ml-edp",
+   "price": 23000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex fragrance with pineapple, bergamot, apple, orange blossom, birch, white florals, amber and musk.",
+   "brand": "Afnan",
+   "collections": [
+    "Afnan",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1061,
+   "name": "Lattafa Khamrah Dukhan EDP 100ml",
+   "slug": "lattafa-khamrah-dukhan-edp-100ml",
+   "price": 13500.0,
+   "salePrice": null,
+   "shortDescription": "Oriental fragrance from 2025 with spices, pimento, incense, praline, tobacco and tonka bean.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 1060,
+   "name": "ARMAF ODYSSEY MANDARIN SKY",
+   "slug": "armaf-odyssey-mandarin-sky",
+   "price": 11500.0,
+   "salePrice": null,
+   "shortDescription": "Fragrance from 2023 with mandarin, saffron, sage, caramel, tonka, ambroxan, cedar and vetiver.",
+   "brand": "Armaf",
+   "collections": [
+    "Armaf",
+    "For Her",
+    "For Him"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 946,
+   "name": "Stronger With You Sandalwood Giorgio Armani",
+   "slug": "stronger-with-you-sandalwood-giorgio-armani",
+   "price": 41000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex oriental woody fragrance from 2025 with saffron, lavender, chestnut, sandalwood, cedarwood and vanilla.",
+   "brand": "Emporio Armani",
+   "collections": [
+    "Emporio Armani",
+    "For Her",
+    "For Him"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 939,
+   "name": "Stronger With You Absolutely by Giorgio Armani",
+   "slug": "stronger-with-you-absolutely-by-giorgio-armani",
+   "price": 36500.0,
+   "salePrice": null,
+   "shortDescription": "Oriental fougère from 2021 with rum, elemi, bergamot, lavender, Madagascar vanilla and patchouli.",
+   "brand": "Emporio Armani",
+   "collections": [
+    "Emporio Armani",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 938,
+   "name": "FRENCH AVENUE Vulcan Feu",
+   "slug": "french-avenue-vulcan-feu",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex floral fragrance from 2025 with mango, lemon, ginger, pink pepper, jasmine, praline and tonka bean.",
+   "brand": "French Avenue",
+   "collections": [
+    "For Her",
+    "For Him",
+    "French Avenue"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 937,
+   "name": "FRENCH AVENUE Vulcan Baie",
+   "slug": "french-avenue-vulcan-baie",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex floral fruity fragrance from 2025 with black currant, blackberry, raspberry, strawberry, musk and sandalwood.",
+   "brand": "French Avenue",
+   "collections": [
+    "For Her",
+    "For Him",
+    "French Avenue"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 933,
+   "name": "FRENCH AVENUE Vulcan Sable",
+   "slug": "french-avenue-vulcan-sable",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex aromatic fragrance from 2025 with whiskey, orange, cashmeran, tonka, vanilla and patchouli.",
+   "brand": "French Avenue",
+   "collections": [
+    "For Her",
+    "For Him",
+    "French Avenue"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 929,
+   "name": "SPICEBOMB EXTREME EDP",
+   "slug": "spicebomb-extreme-edp",
+   "price": 34000.0,
+   "salePrice": null,
+   "shortDescription": "Oriental spicy fragrance for men from 2015.",
+   "brand": "Viktor & Rolf",
+   "collections": [
+    "For Him",
+    "Victor & Rolf"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 923,
+   "name": "Lattafa Bade'e Al Oud Honor & Glory Eau de Parfum 100ml",
+   "slug": "lattafa-badee-al-oud-honor-glory-eau-de-parfum-100ml",
+   "price": 12500.0,
+   "salePrice": null,
+   "shortDescription": "Unisex fragrance from 2023 with pineapple, creme brulee, cinnamon, benzoin, vanilla, sandalwood and moss.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 921,
+   "name": "Lattafa Hayaati Gold Elixir EDP",
+   "slug": "lattafa-hayaati-gold-elixir-edp-100ml",
+   "price": 9000.0,
+   "salePrice": null,
+   "shortDescription": "Unisex fragrance with bergamot, grapefruit, cassis, leather, peach, saffron, vanilla, amber and musk.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 920,
+   "name": "Lattafa Hayaati EDP",
+   "slug": "lattafa-hayaati-edp-100ml",
+   "price": 9000.0,
+   "salePrice": null,
+   "shortDescription": "Woody aromatic fragrance from 2020 with apple, bergamot, cinnamon, musk and vanilla.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 918,
+   "name": "Azzaro The Most Wanted Intense EDP",
+   "slug": "azzaro-the-most-wanted-intense-eau-de-parfum-100ml",
+   "price": 24500.0,
+   "salePrice": null,
+   "shortDescription": "Amber spicy fragrance for men from 2021 with cardamom, toffee and amberwood.",
+   "brand": "Azzaro",
+   "collections": [
+    "Azzaro",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 917,
+   "name": "Azzaro Most Wanted Parfum 100ml",
+   "slug": "azzaro-most-wanted-parfum-100ml",
+   "price": 26500.0,
+   "salePrice": null,
+   "shortDescription": "Woody spicy fragrance for men from 2022 with ginger, woodsy notes and bourbon vanilla.",
+   "brand": "Azzaro",
+   "collections": [
+    "Azzaro",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 911,
+   "name": "Emporio Armani Stronger With You Intensely EDP",
+   "slug": "emporio-armani-stronger-with-you-intensely-eau-de-parfum-100ml",
+   "price": 36000.0,
+   "salePrice": null,
+   "shortDescription": "Amber fougère for men from 2019 with pink pepper, juniper, violet, toffee, cinnamon, vanilla and tonka bean.",
+   "brand": "Emporio Armani",
+   "collections": [
+    "Emporio Armani",
+    "For Him"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 794,
+   "name": "Rasasi Hawas Viper EDP",
+   "slug": "rasasi-hawas-viper-eau-de-parfum",
+   "price": 17000.0,
+   "salePrice": null,
+   "shortDescription": "Heart of tobacco, coffee, raspberry, cinnamon and violet over tonka, musk and gurjan balsam.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 792,
+   "name": "Rasasi Hawas Verde EDP",
+   "slug": "rasasi-hawas-verde-eau-de-parfum",
+   "price": 14500.0,
+   "salePrice": null,
+   "shortDescription": "Citrus aromatic fragrance for men, launched in 2025.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 788,
+   "name": "Rasasi Hawas Tropical EDP",
+   "slug": "rasasi-hawas-tropical-for-him-edp",
+   "price": 14500.0,
+   "salePrice": null,
+   "shortDescription": "Aromatic green fragrance for men from 2025, opening with coconut water, ginger and fig leaf.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 786,
+   "name": "Rasasi Hawas Perfume for Men EDP",
+   "slug": "rasasi-hawas-perfume-for-men-edp",
+   "price": 12500.0,
+   "salePrice": null,
+   "shortDescription": "Aromatic aquatic fragrance for men from 2015, opening with apple, bergamot and lemon.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": "hawas.webp",
+   "featured": true
+  },
+  {
+   "wooId": 784,
+   "name": "Rasasi Hawas MALIBU",
+   "slug": "rasasi-hawas-malibu-eau-de-perfum",
+   "price": 15500.0,
+   "salePrice": null,
+   "shortDescription": "Aromatic fragrance from 2025, opening with pineapple, orange and grapefruit.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": "malibu.webp",
+   "featured": true
+  },
+  {
+   "wooId": 782,
+   "name": "Rasasi Hawas for Her EDP",
+   "slug": "rasasi-hawas-for-her-edp",
+   "price": 13500.0,
+   "salePrice": null,
+   "shortDescription": "Floral fragrance for women from 2015, opening with pomegranate, apple and grapefruit.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Her",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-her",
+   "concentration": "Eau de Parfum",
+   "image": "forher.webp",
+   "featured": true
+  },
+  {
+   "wooId": 781,
+   "name": "Rasasi Hawas Black Perfume for Men EDP",
+   "slug": "rasasi-hawas-black-perfume-for-men-edp",
+   "price": 13500.0,
+   "salePrice": null,
+   "shortDescription": "Fragrance for men from 2024: bergamot, pineapple and grapefruit over oakmoss and amber.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": "black.webp",
+   "featured": true
+  },
+  {
+   "wooId": 774,
+   "name": "Rasasi Hawas Atlantis",
+   "slug": "rasasi-hawas-atlantis-eau-de-parfum",
+   "price": 17000.0,
+   "salePrice": null,
+   "shortDescription": "Fragrance from 2025, opening with bergamot, lemon, apple and cinnamon.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 773,
+   "name": "Rayhaan Valhalla Eau De Parfum",
+   "slug": "rayhaan-valhalla-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Aromatic fruity fragrance for men from 2025, opening with cognac, raspberry and liquor.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 772,
+   "name": "Rayhaan Tropical Vibe Eau de Parfum",
+   "slug": "rayhaan-tropical-vibe-eau-de-parfum",
+   "price": 8000.0,
+   "salePrice": null,
+   "shortDescription": "Mango, pineapple and bergamot; white florals, sea breeze and coconut; amber, sandalwood, musk and vetiver.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 771,
+   "name": "Rayhaan Terra Eau De Parfum",
+   "slug": "rayhaan-terra-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Oriental spicy fragrance for men from 2025: cardamom and bergamot over oud, vanilla and benzoin.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 770,
+   "name": "Rayhaan Pacific Aura Eau de Parfum",
+   "slug": "rayhaan-pacific-aura-eau-de-parfum",
+   "price": 8000.0,
+   "salePrice": null,
+   "shortDescription": "Aromatic aquatic fragrance for men from 2025: mint, mandarin and citron over ambroxan, fig and amber.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 768,
+   "name": "Rayhaan Obsidian Eau De Parfum",
+   "slug": "rayhaan-obsidian-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Woody fragrance for men: iris and citrus, a leather heart, oud and sandalwood base.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 766,
+   "name": "Rayhaan Lion Eau de Parfum",
+   "slug": "rayhaan-lion-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Aromatic spicy fragrance for men from 2024: lavender, pear and mint over vanilla, amber and cedar.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 764,
+   "name": "Rayhaan Jungle Vibe Eau De Parfum",
+   "slug": "rayhaan-jungle-vibe-eau-de-parfum",
+   "price": 8000.0,
+   "salePrice": null,
+   "shortDescription": "Bergamot and grapefruit; fig and violet leaf; sandalwood and white musk.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 762,
+   "name": "Rayhaan Italia Eau De Parfum",
+   "slug": "rayhaan-italia-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Oriental woody fragrance for men from 2025: lavender and lemon over vanilla, tobacco leaf and tonka.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 761,
+   "name": "Rayhaan Elixir Eau De Parfum",
+   "slug": "rayhaan-elixir-eau-de-parfum",
+   "price": 8000.0,
+   "salePrice": null,
+   "shortDescription": "Oriental woody fragrance for women and men from 2024: mint and bergamot over vanilla and tonka.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 760,
+   "name": "Rayhaan Crimson Eau de Parfum",
+   "slug": "rayhaan-crimson-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Cinnamon, pink pepper and cardamom; patchouli; tonka, vanilla and benzoin.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 758,
+   "name": "Rayhaan Adonis Icarus Eau de Parfum",
+   "slug": "rayhaan-adonis-icarus-eau-de-parfum",
+   "price": 8000.0,
+   "salePrice": null,
+   "shortDescription": "From 2025: orange, mandarin and bergamot; neroli and ginger; ambergris, musk and vetiver.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 747,
+   "name": "Rayhaan Acquatica Eau De Parfum",
+   "slug": "rayhaan-acquatica-eau-de-parfum",
+   "price": 8500.0,
+   "salePrice": null,
+   "shortDescription": "Lime, bergamot, mandarin and coconut milk; jasmine, gardenia and hibiscus; white musk, rum and tonka.",
+   "brand": "Rayhaan",
+   "collections": [
+    "For Him",
+    "Rayhaan"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 745,
+   "name": "Lattafa Khamrah Qahwa Eau de Parfum",
+   "slug": "lattafa-khamrah-qahwa-eau-de-parfum",
+   "price": 13500.0,
+   "salePrice": 13000.0,
+   "shortDescription": "Unisex fragrance from 2023: cardamom, ginger and cinnamon; praline and candied fruits; vanilla and coffee.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 744,
+   "name": "Lattafa Khamrah EDP",
+   "slug": "lattafa-khamrah-eau-de-parfum",
+   "price": 13500.0,
+   "salePrice": 13000.0,
+   "shortDescription": "Khamrah is a unisex aromatic spicy fragrance launched in 2022.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false,
+   "topNotes": "Cinnamon, nutmeg, bergamot",
+   "heartNotes": "Dates, praline, tuberose, mahonial",
+   "baseNotes": "Vanilla, tonka bean, benzoin, myrrh, amberwood, akigalawood",
+   "accent": "#C98A1E"
+  },
+  {
+   "wooId": 742,
+   "name": "Lattafa Yara Tous Eau De Parfum",
+   "slug": "lattafa-yara-tous-eau-de-parfum",
+   "price": 12500.0,
+   "salePrice": null,
+   "shortDescription": "Fragrance for women from 2023: mango, coconut and passionfruit; jasmine and heliotrope; vanilla, cashmeran and musk.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "Lattafa"
+   ],
+   "gender": "for-her",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 741,
+   "name": "Lattafa Asad Eau de Parfum",
+   "slug": "lattafa-asad-eau-de-parfum",
+   "price": 11500.0,
+   "salePrice": null,
+   "shortDescription": "Fresh, zesty and spicy: black pepper, pineapple and tobacco; coffee, patchouli and iris; amber and vanilla.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 734,
+   "name": "Lattafa Asad Bourbon Eau de Parfum",
+   "slug": "lattafa-asad-bourbon-eau-de-parfum",
+   "price": 11500.0,
+   "salePrice": null,
+   "shortDescription": "Oriental spicy fragrance for men from 2025: lavender, mirabelle and pink pepper; cacao and nutmeg; bourbon vanilla, amber and vetiver.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 309,
+   "name": "Lattafa Angham",
+   "slug": "lattafa-angham",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Oriental vanilla fragrance for women and men from 2024: ginger, mandarin and pink pepper; lavender, praline and cacao; vanilla, amber and musk.",
+   "brand": "Lattafa",
+   "collections": [
+    "For Her",
+    "For Him",
+    "Lattafa"
+   ],
+   "gender": "unisex",
+   "concentration": "Eau de Parfum",
+   "image": null,
+   "featured": false
+  },
+  {
+   "wooId": 9001,
+   "name": "Rasasi Hawas Fire",
+   "slug": "rasasi-hawas-fire",
+   "price": 15000.0,
+   "salePrice": null,
+   "shortDescription": "Hawas Fire by Rasasi, a fragrance for men.",
+   "brand": "Rasasi",
+   "collections": [
+    "For Him",
+    "Rasasi Hawas"
+   ],
+   "gender": "for-him",
+   "concentration": "Eau de Parfum",
+   "image": "fire.webp",
+   "featured": true
+  }
+ ],
+ "categories": [
+  "For Him",
+  "For Her",
+  "Rasasi Hawas"
+ ],
+ "shipping": [
+  {
+   "name": "Islandwide insured delivery",
+   "description": "Secure insured shipping islandwide.",
+   "rate": 0,
+   "estimatedDays": "2–5 working days",
+   "sortOrder": 1
+  }
+ ],
+ "payments": [
+  {
+   "name": "Bank transfer",
+   "type": "bank_transfer",
+   "description": "Pay by direct bank transfer. Your order ships once the payment reaches us.",
+   "instructions": "Transfer the order total to:\n\n**Bank:** [YOUR BANK]\n**Account name:** [ACCOUNT NAME]\n**Account number:** [ACCOUNT NUMBER]\n**Branch:** [BRANCH]\n\nUse your order number as the payment reference and send the slip to us on WhatsApp.",
+   "feePercent": 0,
+   "sortOrder": 1,
+   "enabled": true
+  },
+  {
+   "name": "Credit / debit card",
+   "type": "payhere",
+   "description": "Visa, Mastercard and Amex through PayHere.",
+   "feePercent": 5,
+   "sortOrder": 2,
+   "enabled": true,
+   "testMode": true,
+   "config": {
+    "merchantId": "",
+    "merchantSecret": ""
+   }
+  },
+  {
+   "name": "Koko: pay in 3",
+   "type": "koko",
+   "description": "Split the payment into 3 interest-free instalments.",
+   "instructions": "We will send you a Koko payment link on WhatsApp to complete your order.",
+   "feePercent": 10,
+   "sortOrder": 3,
+   "enabled": true
+  },
+  {
+   "name": "Payzy: pay in 4",
+   "type": "payzy",
+   "description": "Split the payment into 4 instalments.",
+   "instructions": "We will send you a Payzy payment link on WhatsApp to complete your order.",
+   "feePercent": 10,
+   "sortOrder": 4,
+   "enabled": true
+  },
+  {
+   "name": "Cash on delivery",
+   "type": "cash_on_delivery",
+   "description": "Pay in cash when your order arrives.",
+   "feePercent": 0,
+   "sortOrder": 5,
+   "enabled": false
+  }
+ ],
+ "pages": [
+  {
+   "slug": "about-us",
+   "title": "About us",
+   "content": "Fragrance Vault brings authentic designer and Middle Eastern perfumes to Sri Lanka, with secure insured shipping islandwide.\n\n_Replace this text in Strapi under Content Manager → Page → About us, or run the WordPress import to bring over your existing page._"
+  },
+  {
+   "slug": "contact-us",
+   "title": "Contact us",
+   "content": "Have a question about a scent or an order? Reach us on WhatsApp or by email and we will help you find your signature.\n\n_Add your phone, email and WhatsApp in Strapi under Site settings._"
+  },
+  {
+   "slug": "shipping-and-returns",
+   "title": "Shipping & returns",
+   "content": "We ship islandwide with secure insured delivery.\n\n_Add your delivery times, fees and returns policy here._"
+  },
+  {
+   "slug": "privacy-policy",
+   "title": "Privacy policy",
+   "content": "_Add your privacy policy here._"
+  },
+  {
+   "slug": "terms-and-conditions",
+   "title": "Terms & conditions",
+   "content": "_Add your terms and conditions here._"
+  }
+ ]
+}
