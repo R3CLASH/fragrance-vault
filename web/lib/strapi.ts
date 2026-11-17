@@ -139,7 +139,11 @@ export async function getProducts(query: ProductQuery = {}): Promise<Product[]> 
   if (query.brand) qs.push(`filters[brand][slug][$eq]=${encodeURIComponent(query.brand)}`);
   if (query.gender) qs.push(`filters[gender][$eq]=${encodeURIComponent(query.gender)}`);
   if (query.featured) qs.push('filters[featured][$eq]=true');
-  if (query.q) qs.push(`filters[name][$containsi]=${encodeURIComponent(query.q)}`);
+  // Search: every word must appear somewhere (name, house, range, SKU, concentration or notes),
+  // so "rasasi fire" finds "Rasasi Hawas Fire" and "vanilla" finds perfumes with vanilla notes.
+  const words = (query.q || '').trim().split(/\s+/).filter(Boolean).slice(0, 6);
+  const SEARCH_FIELDS = ['name', 'sku', 'brand][name', 'categories][name', 'concentration', 'topNotes', 'heartNotes', 'baseNotes'];
+  words.forEach((w, i) => SEARCH_FIELDS.forEach((f, j) => qs.push(`filters[$and][${i}][$or][${j}][${f}][$containsi]=${encodeURIComponent(w)}`)));
   const sort: Record<string, string> = { 'price-asc': 'price:asc', 'price-desc': 'price:desc', name: 'name:asc', newest: 'createdAt:desc' };
   qs.push(`sort=${sort[query.sort || ''] || 'createdAt:desc'}`);
   const { data } = await strapi<any>(`/products?${qs.join('&')}`);

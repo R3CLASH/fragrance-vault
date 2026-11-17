@@ -85,6 +85,24 @@ export default function ShopFilters({ sp, categories, brands, count }: { sp: SP;
   const [open, setOpen] = useState<string | null>(null);
   const bar = useRef<HTMLDivElement>(null);
 
+  // Live search: results update a moment after the shopper stops typing (Enter searches straight away).
+  const [term, setTerm] = useState(sp.q || '');
+  const search = (value: string, now = false) => {
+    const q = value.trim();
+    if (q === (sp.q || '')) return;
+    const go = () => router.replace(href(sp, { q: q || undefined }), { scroll: false });
+    if (now) go(); else return go;
+  };
+  // follow the URL when it changes from outside the box (a removed tag, "Reset the lock", back button)
+  useEffect(() => { setTerm((t) => (t.trim() === (sp.q || '') ? t : sp.q || '')); }, [sp.q]);
+  useEffect(() => {
+    const go = search(term);
+    if (!go) return;
+    const id = setTimeout(go, 400);
+    return () => clearTimeout(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [term]);
+
   useEffect(() => {
     if (!open) return;
     const away = (e: PointerEvent) => { if (!bar.current?.contains(e.target as Node)) setOpen(null); };
@@ -109,10 +127,10 @@ export default function ShopFilters({ sp, categories, brands, count }: { sp: SP;
           {tum('Range', 'category', [{ value: '', label: 'Every range', short: 'All' }, ...categories.map((c) => ({ value: c.slug, label: c.name }))])}
           {tum('House', 'brand', [{ value: '', label: 'Every house', short: 'All' }, ...brands.map((b) => ({ value: b.slug, label: b.name }))])}
           {tum('Order', 'sort', SORTS)}
-          <form className="lock-search" role="search" onSubmit={(e) => { e.preventDefault(); const q = new FormData(e.currentTarget).get('q') as string; router.push(href(sp, { q: q.trim() || undefined }), { scroll: false }); }}>
+          <form className="lock-search" role="search" onSubmit={(e) => { e.preventDefault(); search(term, true); (document.activeElement as HTMLElement | null)?.blur(); }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="M20 20l-4-4" /></svg>
             <label className="sr" htmlFor="q">Search perfumes</label>
-            <input id="q" name="q" type="search" placeholder="Search the vault" defaultValue={sp.q || ''} key={sp.q || ''} />
+            <input id="q" name="q" type="search" enterKeyHint="search" autoComplete="off" placeholder="Search perfumes or notes" value={term} onChange={(e) => setTerm(e.target.value)} />
           </form>
           <span className="lock-count" aria-live="polite"><b>{count}</b>{count === 1 ? 'box' : 'boxes'}</span>
         </div>
