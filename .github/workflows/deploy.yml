@@ -1,4 +1,5 @@
 # Deploys to Railway on every push to main. Only the service whose folder changed is rebuilt.
+# A manual run (Actions → Deploy to Railway → Run workflow) redeploys only the service you pick.
 # Needs one repository secret: RAILWAY_TOKEN, a project token for the fragrance-vault project
 # (Railway → project → Settings → Tokens → create a token for the "production" environment).
 name: Deploy to Railway
@@ -7,6 +8,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      service:
+        description: Which service to redeploy
+        type: choice
+        options: [web, cms, both]
+        default: web
 
 concurrency:
   group: railway-${{ github.ref }}
@@ -43,7 +50,11 @@ jobs:
         id: gate
         run: |
           changed='${{ needs.changes.outputs[matrix.service] }}'
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then changed=true; fi
+          # a manual run deploys only the service picked in the "Run workflow" form (default: web)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            pick='${{ inputs.service }}'
+            if [ "$pick" = both ] || [ "$pick" = "${{ matrix.service }}" ]; then changed=true; else changed=false; fi
+          fi
           if [ -z "$RAILWAY_TOKEN" ]; then echo "::warning::RAILWAY_TOKEN secret is not set, skipping deploy."; changed=false; fi
           echo "go=$changed" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
