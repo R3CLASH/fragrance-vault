@@ -102,7 +102,7 @@ p { margin: 0; }
 .cue i { width: 1px; height: 46px; background: var(--gold-hi); animation: cue 2.2s ease-in-out infinite; }
 
 /* ---------- Home: iris + deposit boxes ---------- */
-.iris { position: relative; z-index: 2; background: var(--bg2) radial-gradient(120% 70% at 50% 0%, #1d160a, #0b0906 65%); }
+.iris { position: relative; z-index: 2; overflow-x: clip; /* the growing ring must never widen the page (clip, unlike hidden, keeps the ring visible above) */ background: var(--bg2) radial-gradient(120% 70% at 50% 0%, #1d160a, #0b0906 65%); }
 .iris-ring { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; border-radius: 50%; border: 2px solid var(--gold-hi); box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.35); pointer-events: none; opacity: 0; z-index: 3; }
 .iris-ring i { position: absolute; inset: 12px; border-radius: 50%; border: 3px dashed rgba(212, 175, 55, 0.8); }
 .section { padding-top: clamp(72px, 10vw, 130px); padding-bottom: clamp(72px, 10vw, 130px); display: flex; flex-direction: column; gap: 48px; }
