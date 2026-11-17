@@ -129,7 +129,7 @@ export default function Nav({ logo, siteName, categories }: { logo: string; site
           <span className="eyebrow" style={{ marginBottom: 14 }}>Choose a door</span>
           {[{ href: '/', t: 'Home' }, { href: '/shop', t: 'The Vault' }, { href: '/cart', t: `Your bag (${bag})` }, { href: '/about-us', t: 'About us' }, { href: '/contact-us', t: 'Contact' }].map((l, i) => (
             <Link key={l.href} href={l.href} style={{ ['--i' as string]: i }} tabIndex={open ? 0 : -1} onClick={l.href === '/cart' ? openBag : () => setOpen(false)}>
-              <span>0{i + 1}</span>{l.t}
+              {l.t}
             </Link>
           ))}
           <div className="menu-chips">

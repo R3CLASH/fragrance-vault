@@ -538,3 +538,8 @@ textarea.field { padding: 12px 14px; min-height: 96px; resize: vertical; }
 .letter-send .btn:not(.btn-gold) { color: #2a2110; border-color: rgba(42, 33, 16, 0.6); background: transparent; }
 .letter .hint { color: #7a5c1c; }
 @media (max-width: 560px) { .topic-dial { grid-template-columns: minmax(0, 1fr); } .letter { transform: none; } }
+
+/* Number-free markers: the gold circles that used to hold numerals now hold a small gold dot. */
+.lock-num::after, .path-dot::after, .topic-dial button em::after, .dial b::before { content: ''; display: block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.dial b::before { margin: 0 auto; width: 9px; height: 9px; }
+.topic-dial button.on em::after { background: #0a0804; }

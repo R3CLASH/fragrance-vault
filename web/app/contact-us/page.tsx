@@ -46,7 +46,7 @@ export default async function Contact() {
 
   return (
     <div className="contact">
-      <PageHero eyebrow="Contact" title="Speak to the" highlight="keepers." plate="No. 02 · The front desk"
+      <PageHero eyebrow="Contact" title="Speak to the" highlight="keepers." plate="The front desk"
         lead="A question about a scent, a gift or an order? Write to us and a real person from the vault will answer.">
         {channels[0] ? <a className="btn btn-gold" href={channels[0][2]} target={channels[0][2].startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">{channels[0][0] === 'WhatsApp' ? 'Message on WhatsApp' : channels[0][3]}</a> : null}
         <a className="btn" href="#write">Write a letter</a>

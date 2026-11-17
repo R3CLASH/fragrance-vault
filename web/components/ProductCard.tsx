@@ -21,14 +21,13 @@ const Check = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
 );
 
-/** A safe-deposit box: numbered plate, spotlit bottle on a plinth, and a lock-in button. */
+/** A safe-deposit box: brand plate, spotlit bottle on a plinth, and a lock-in button. */
 export default function ProductCard({ p, i = 0 }: { p: Product; i?: number }) {
   const { add } = useCart();
   const [added, setAdded] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const href = `/product/${p.slug}`;
   const pick = p.variants.length > 1; // several sizes: choose one on the product page
-  const box = p.sku || `No. ${String(i + 1).padStart(3, '0')}`;
   const sub = [p.concentration, p.size].filter(Boolean).join(' · ') || 'Eau de Parfum';
 
   const addToCart = () => {
@@ -54,12 +53,11 @@ export default function ProductCard({ p, i = 0 }: { p: Product; i?: number }) {
       <div className="card-plate">
         <span>{p.brand?.name || 'The Vault'}</span>
         <i aria-hidden="true" />
-        <span>{p.gender ? GENDERS[p.gender] : box}</span>
+        <span>{p.gender ? GENDERS[p.gender] : ''}</span>
       </div>
 
       <div className="card-stage">
         {p.onSale ? <span className="badge">Sale</span> : !p.inStock ? <span className="badge out">Sold out</span> : null}
-        <span className="card-box" aria-hidden="true">{box}</span>
         <div className="card-img">
           {p.image ? (
             <img src={p.image.url} alt={p.image.alt || p.name} loading="lazy" decoding="async" width={p.image.width} height={p.image.height} />

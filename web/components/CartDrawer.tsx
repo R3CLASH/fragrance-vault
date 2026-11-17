@@ -48,7 +48,7 @@ export default function CartDrawer() {
           <span className="bag-dial" aria-hidden="true" style={{ ['--a' as string]: `${n * 45}deg` }}><i /></span>
           <div>
             <span className="eyebrow">Your vault</span>
-            <h2>The bag <small>{String(n).padStart(2, '0')}</small></h2>
+            <h2>The bag <small>{n}</small></h2>
           </div>
           <button type="button" className="bag-close" onClick={() => setDrawer(false)} aria-label="Close the bag">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -69,7 +69,6 @@ export default function CartDrawer() {
                 const l = live(i), price = l ? l.unitPrice : i.price, bad = problem(i);
                 return (
                   <li key={i.key} className="slip" style={{ ['--k' as string]: k }}>
-                    <span className="slip-no" aria-hidden="true">{String(k + 1).padStart(2, '0')}</span>
                     <Link className="slip-img" href={`/product/${i.slug}`} tabIndex={-1} aria-hidden="true">{i.image ? <img src={i.image} alt="" /> : <span className="ph" />}</Link>
                     <div className="slip-info">
                       <Link href={`/product/${i.slug}`}>{i.name}</Link>

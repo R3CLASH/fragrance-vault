@@ -11,7 +11,6 @@ import ProductCard from './ProductCard';
 
 const cl = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const ez = (v: number) => v * v * (3 - 2 * v);
-const ROMAN = ['I', 'II', 'III'];
 
 export default function HomeExperience({ home, boxes }: { home: Home; boxes: Product[] }) {
   const root = useRef<HTMLDivElement>(null);
@@ -81,7 +80,7 @@ export default function HomeExperience({ home, boxes }: { home: Home; boxes: Pro
       const s = pc < 1 / 3 ? 0 : pc < 2 / 3 ? 1 : 2;
       if (s !== step) {
         step = s; B.to(shapes[s]);
-        $('#stepLabel').textContent = `${ROMAN[s]} · ${home.steps[s]?.label || ''}`;
+        $('#stepLabel').textContent = home.steps[s]?.label || '';
         $('#stepBody').textContent = home.steps[s]?.body || '';
         bars.forEach((b, i) => b.classList.toggle('on', i <= s));
       }
@@ -155,7 +154,7 @@ export default function HomeExperience({ home, boxes }: { home: Home; boxes: Pro
         <div className="combo-stick" data-stick="combo">
           <div className="wrap combo-scene" data-scene>
             <div className="dial-wrap" aria-hidden="true">
-              <div className="dial" data-dial><b>I</b><b>II</b><b>III</b></div>
+              <div className="dial" data-dial><b /><b /><b /></div>
               <div className="dial-pointer" />
               <canvas id="comboCv" />
             </div>
@@ -163,7 +162,7 @@ export default function HomeExperience({ home, boxes }: { home: Home; boxes: Pro
               <span className="eyebrow">{home.comboEyebrow}</span>
               <h2>{home.comboTitle}</h2>
               <div className="combo-step" aria-live="polite">
-                <span id="stepLabel">I · {home.steps[0]?.label}</span>
+                <span id="stepLabel">{home.steps[0]?.label}</span>
                 <p className="lead" id="stepBody">{home.steps[0]?.body}</p>
               </div>
               <div className="bars" aria-hidden="true"><i className="on" /><i /><i /></div>

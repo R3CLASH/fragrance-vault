@@ -69,7 +69,7 @@ function Tumbler({ name, param, options, sp, open, onOpen }: { name: string; par
             return (
               <Link key={o.value || 'all'} role="menuitemradio" aria-checked={i === sel} className={i === sel ? 'on' : ''} href={href(sp, { [param]: o.value || undefined })} scroll={false}
                 onMouseEnter={() => setAim(i)} onFocus={() => setAim(i)} onClick={() => onOpen(false)}>
-                <em>{String(i).padStart(2, '0')}</em>{o.label}
+                {o.label}
               </Link>
             );
           })}
@@ -114,7 +114,7 @@ export default function ShopFilters({ sp, categories, brands, count }: { sp: SP;
             <label className="sr" htmlFor="q">Search perfumes</label>
             <input id="q" name="q" type="search" placeholder="Search the vault" defaultValue={sp.q || ''} key={sp.q || ''} />
           </form>
-          <span className="lock-count" aria-live="polite"><b>{String(count).padStart(2, '0')}</b>{count === 1 ? 'box' : 'boxes'}</span>
+          <span className="lock-count" aria-live="polite"><b>{count}</b>{count === 1 ? 'box' : 'boxes'}</span>
         </div>
         {active.length ? (
           <div className="lock-tags">

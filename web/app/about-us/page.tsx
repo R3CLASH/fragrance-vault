@@ -26,7 +26,7 @@ export default async function About() {
 
   return (
     <div className="about">
-      <PageHero eyebrow={`About ${g.siteName}`} title="Perfume, kept under" highlight="lock and key." plate="No. 01 · The house"
+      <PageHero eyebrow={`About ${g.siteName}`} title="Perfume, kept under" highlight="lock and key." plate="The house"
         lead="We keep a vault of authentic designer and Middle Eastern perfumes, and open it to the whole island with secure insured delivery.">
         <Link className="btn btn-gold" href="/shop">Open the collection</Link>
         <Link className="btn" href="/contact-us">Speak to us</Link>
@@ -59,12 +59,12 @@ export default async function About() {
           <div className="sec-head"><div><span className="eyebrow">The vault promise</span><h2>Three locks on every order</h2></div></div>
           <div className="locks">
             {[
-              ['I', 'Authentic, always', 'Every bottle in the vault is the genuine article: designer and Middle Eastern houses, never imitations.'],
-              ['II', 'Insured to your door', 'Secure insured shipping islandwide, with an email at every step from the vault to your hands.'],
-              ['III', 'Pay your way', pay.length ? `Choose ${pay.length > 1 ? `${pay.slice(0, -1).join(', ')} or ${pay[pay.length - 1]}` : pay[0]} at checkout.` : 'Choose the payment method that suits you at checkout.'],
+              ['authentic', 'Authentic, always', 'Every bottle in the vault is the genuine article: designer and Middle Eastern houses, never imitations.'],
+              ['insured', 'Insured to your door', 'Secure insured shipping islandwide, with an email at every step from the vault to your hands.'],
+              ['pay', 'Pay your way', pay.length ? `Choose ${pay.length > 1 ? `${pay.slice(0, -1).join(', ')} or ${pay[pay.length - 1]}` : pay[0]} at checkout.` : 'Choose the payment method that suits you at checkout.'],
             ].map(([n, h, t], i) => (
               <Reveal key={n} delay={i * 0.1} className="lock-card">
-                <span className="lock-num">{n}</span>
+                <span className="lock-num" aria-hidden="true" />
                 <h3>{h}</h3>
                 <p>{t}</p>
               </Reveal>
@@ -78,7 +78,7 @@ export default async function About() {
         <ol className="path">
           {STEPS.map(([h, t], i) => (
             <Reveal key={h} delay={i * 0.12} className="path-step">
-              <span className="path-dot">{String(i + 1).padStart(2, '0')}</span>
+              <span className="path-dot" aria-hidden="true" />
               <h3>{h}</h3>
               <p>{t}</p>
             </Reveal>
@@ -93,7 +93,7 @@ export default async function About() {
             <div className="house-grid">
               {brands.map((b, i) => (
                 <Link key={b.slug} className="house" href={`/shop?brand=${b.slug}`} style={{ ['--i' as string]: i }}>
-                  <span>{String(i + 1).padStart(2, '0')}</span>{b.name}
+                  {b.name}
                 </Link>
               ))}
             </div>

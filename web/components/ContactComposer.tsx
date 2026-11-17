@@ -27,7 +27,7 @@ export default function ContactComposer({ whatsapp, email, siteName }: { whatsap
           <div className="topic-dial">
             {TOPICS.map((t, i) => (
               <button key={t} type="button" className={i === topic ? 'on' : ''} aria-pressed={i === topic} onClick={() => setTopic(i)}>
-                <em>{['I', 'II', 'III', 'IV'][i]}</em>{t}
+                <em aria-hidden="true" />{t}
               </button>
             ))}
           </div>

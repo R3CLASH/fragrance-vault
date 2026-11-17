@@ -64,7 +64,7 @@ export default function BuyBox({ p }: { p: Product }) {
             <span className="label">The combination</span>
             <div className="notes" style={{ gridTemplateColumns: `repeat(${notes.length}, minmax(0, 1fr))` }}>
               {notes.map(([k], i) => (
-                <button key={k} type="button" className={i === note ? 'on' : ''} aria-pressed={i === note} onClick={() => setNote(i)}><b>{['I', 'II', 'III'][i]}</b><span>{k}</span></button>
+                <button key={k} type="button" className={i === note ? 'on' : ''} aria-pressed={i === note} onClick={() => setNote(i)}><span>{k}</span></button>
               ))}
             </div>
             <p className="notice" aria-live="polite">{notes[note][0]} notes: {notes[note][1]}</p>
