@@ -2,6 +2,13 @@ const allowedMediaTypes = ['image/*', 'video/*', 'application/pdf'];
 const deniedTypes = ['image/svg+xml', 'application/x-msdownload', 'application/x-sh', 'text/x-shellscript'];
 
 module.exports = ({ env }) => ({
+  // Push alerts to the Stockroom phone app for new, cancelled and completed orders.
+  // Source: github.com/R3CLASH/stockroom (strapi-plugin-stockroom). Needs outbound access to exp.host.
+  stockroom: {
+    enabled: true,
+    resolve: './src/plugins/stockroom',
+    config: { currency: 'Rs.', orderUid: 'api::order.order', statusField: 'orderStatus', numberField: 'orderNumber', totalField: 'total' },
+  },
   'users-permissions': {
     config: { jwtManagement: 'refresh', sessions: { httpOnly: true } },
   },

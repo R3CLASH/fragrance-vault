@@ -1,0 +1,10 @@
+{
+  "name": "strapi-plugin-stockroom",
+  "version": "1.0.0",
+  "description": "Companion plugin for the Stockroom mobile app: push notifications for new, cancelled and completed orders.",
+  "license": "MIT",
+  "main": "strapi-server.js",
+  "files": ["strapi-server.js", "server", "README.md"],
+  "strapi": { "kind": "plugin", "name": "stockroom", "displayName": "Stockroom", "description": "Push order notifications to the Stockroom mobile app" },
+  "peerDependencies": { "@strapi/strapi": "^4.0.0 || ^5.0.0" }
+}
