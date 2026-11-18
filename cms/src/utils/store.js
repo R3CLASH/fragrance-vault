@@ -277,13 +277,20 @@ function payhereForm(strapi, order, method) {
   return { url: method.testMode ? 'https://sandbox.payhere.lk/pay/checkout' : 'https://www.payhere.lk/pay/checkout', fields };
 }
 
+const sameSig = (a, b) => {
+  const x = Buffer.from(String(a)), y = Buffer.from(String(b));
+  return x.length === y.length && crypto.timingSafeEqual(x, y);
+};
+
 async function payhereNotify(strapi, body = {}) {
-  const order = await findOrder(strapi, { orderNumber: body.order_id });
-  if (!order) throw new StoreError('Unknown order', 404);
+  // Check PayHere's signature before anything else, so this public endpoint reveals nothing about which orders exist.
   const methods = await strapi.documents(PAYMENT).findMany({ filters: { type: 'payhere' }, limit: 1 });
   const cfg = (methods[0] && methods[0].config) || {};
   const expected = md5(String(cfg.merchantId) + body.order_id + body.payhere_amount + body.payhere_currency + body.status_code + md5(String(cfg.merchantSecret)));
-  if (!cfg.merchantSecret || expected !== String(body.md5sig || '').toUpperCase()) throw new StoreError('Signature mismatch', 401);
+  if (!cfg.merchantSecret || !sameSig(expected, String(body.md5sig || '').toUpperCase())) throw new StoreError('Signature mismatch', 401);
+  const order = await findOrder(strapi, { orderNumber: body.order_id });
+  if (!order) throw new StoreError('Unknown order', 404);
+  if (String(body.payhere_currency || '').toUpperCase() !== String(order.currency || 'LKR').toUpperCase()) throw new StoreError('Currency mismatch', 400);
   if (Number(body.payhere_amount) + 0.001 < Number(order.total)) throw new StoreError('Amount mismatch', 400);
   const code = Number(body.status_code);
   if (code === 2 && order.paymentStatus !== 'paid') {

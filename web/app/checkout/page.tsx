@@ -31,11 +31,13 @@ export default function Checkout() {
   const [error, setError] = useState<string | null>(null);
   const [payhere, setPayhere] = useState<Placed['payment']['redirect'] | null>(null);
   const payForm = useRef<HTMLFormElement>(null);
+  // Saving the customer's details on this device is opt-in (personal data); it stays ticked for people who chose it before.
+  const [remember, setRemember] = useState(false);
 
   const cart = useMemo(() => items.map((i) => ({ id: i.id, variant: i.variant, quantity: i.qty })), [items]);
 
   useEffect(() => {
-    try { const saved = JSON.parse(localStorage.getItem('fv-checkout') || 'null'); if (saved) { setEmail(saved.email || ''); setBill({ ...EMPTY, ...saved.bill }); } } catch { /* ignore */ }
+    try { const saved = JSON.parse(localStorage.getItem('fv-checkout') || 'null'); if (saved) { setEmail(saved.email || ''); setBill({ ...EMPTY, ...saved.bill }); setRemember(true); } } catch { /* ignore */ }
   }, []);
   useEffect(() => {
     if (!ready || !cart.length) return;
@@ -79,7 +81,7 @@ export default function Checkout() {
   const place = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true); setError(null);
-    try { localStorage.setItem('fv-checkout', JSON.stringify({ email, bill })); } catch { /* ignore */ }
+    try { if (remember) localStorage.setItem('fv-checkout', JSON.stringify({ email, bill })); else localStorage.removeItem('fv-checkout'); } catch { /* ignore */ }
     const r = await post<Placed>('/api/checkout', {
       items: cart, email, billing: bill, shipToDifferentAddress: diff, shipping: diff ? ship : undefined, note,
       couponCode: coupon && quote?.coupon?.valid ? coupon : undefined, shippingMethodId: shippingId, paymentMethodId: paymentId,
@@ -107,6 +109,7 @@ export default function Checkout() {
               <h2>Delivery details</h2>
               {addressFields(bill, setBill, 'shipping')}
               <label className="opt" style={{ alignItems: 'center' }}><input type="checkbox" checked={diff} onChange={(e) => setDiff(e.target.checked)} /><div><b>Ship to a different address</b><small>Sending a gift? Add the recipient here.</small></div></label>
+              <label className="opt" style={{ alignItems: 'center' }}><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /><div><b>Remember my details on this device</b><small>Fills in your email and address next time. Leave this off on a shared device.</small></div></label>
               {diff ? addressFields(ship, setShip, 'section-gift shipping') : null}
               <label className="form-grid" style={{ display: 'flex' }}><span className="sr">Order note</span>
                 <textarea className="field" placeholder="Order note (optional), e.g. gift wrap or delivery time" value={note} onChange={(e) => setNote(e.target.value)} />

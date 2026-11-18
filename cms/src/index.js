@@ -49,6 +49,7 @@ module.exports = {
 
   async bootstrap({ strapi }) {
     await grantPublicRead(strapi);
+    await lockPublicAuth(strapi);
     await adminListViews(strapi);
     if (process.env.SEED_ON_EMPTY !== 'false') await seed(strapi);
   },
@@ -61,6 +62,21 @@ async function grantPublicRead(strapi) {
     const exists = await strapi.db.query('plugin::users-permissions.permission').findOne({ where: { action, role: role.id } });
     if (!exists) await strapi.db.query('plugin::users-permissions.permission').create({ data: { action, role: role.id } });
   }
+}
+
+// The shop has no customer accounts (orders are guest checkouts), so nobody may sign up or use the
+// end-user auth flows. Admin logins are separate and unaffected. Runs on every start, so it stays off.
+const PUBLIC_AUTH_OFF = [
+  'plugin::users-permissions.auth.register', 'plugin::users-permissions.auth.connect', 'plugin::users-permissions.auth.callback',
+  'plugin::users-permissions.auth.forgotPassword', 'plugin::users-permissions.auth.resetPassword',
+  'plugin::users-permissions.auth.emailConfirmation', 'plugin::users-permissions.auth.sendEmailConfirmation',
+];
+async function lockPublicAuth(strapi) {
+  const ups = strapi.store({ type: 'plugin', name: 'users-permissions' });
+  const adv = (await ups.get({ key: 'advanced' })) || {};
+  if (adv.allow_register !== false) await ups.set({ key: 'advanced', value: { ...adv, allow_register: false } });
+  const role = await strapi.db.query('plugin::users-permissions.role').findOne({ where: { type: 'public' } });
+  if (role) await strapi.db.query('plugin::users-permissions.permission').deleteMany({ where: { role: role.id, action: { $in: PUBLIC_AUTH_OFF } } });
 }
 
 const LABELS = { orderNumber: 'Order', orderStatus: 'Status', paymentStatus: 'Payment', total: 'Total (LKR)', customerEmail: 'Customer', createdAt: 'Date', salePrice: 'Sale price', feePercent: 'Fee %', freeOver: 'Free over (LKR)', usedCount: 'Times used', expiresAt: 'Expires', sortOrder: 'Order in list' };

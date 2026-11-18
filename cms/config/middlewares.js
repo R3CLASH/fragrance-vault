@@ -11,7 +11,6 @@ module.exports = ({ env }) => [
     },
   },
   { name: 'strapi::cors', config: { origin: env.array('CORS_ORIGINS', ['http://localhost:3000', 'http://localhost:1337']) } },
-  'strapi::poweredBy',
   'strapi::query',
   'strapi::body',
   'strapi::session',

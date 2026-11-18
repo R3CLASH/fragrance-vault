@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: { params: P }) {
 
   return (
     <div className="page">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, '\\u003c') }} />
       <div className="wrap">
         <nav className="crumbs" aria-label="Breadcrumb">
           <Link href="/">Home</Link><span aria-hidden="true">/</span>

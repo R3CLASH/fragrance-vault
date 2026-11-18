@@ -543,3 +543,15 @@ textarea.field { padding: 12px 14px; min-height: 96px; resize: vertical; }
 .lock-num::after, .path-dot::after, .topic-dial button em::after, .dial b::before { content: ''; display: block; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .dial b::before { margin: 0 auto; width: 9px; height: 9px; }
 .topic-dial button.on em::after { background: #0a0804; }
+
+/* Privacy notice: a small card in the corner, above the phone tab bar, never covering the whole screen. */
+.privacy-note { position: fixed; z-index: 70; left: 16px; bottom: 16px; max-width: 420px; display: flex; align-items: center; gap: 16px; padding: 14px 16px 14px 20px; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 10px; background: rgba(10, 8, 5, 0.96); box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.9); }
+.privacy-note p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--mute); }
+.privacy-note a { color: var(--gold-hi); text-decoration: underline; text-underline-offset: 3px; }
+.privacy-note .btn { flex: 0 0 auto; min-height: 40px; padding: 0 18px; }
+@media (max-width: 899px) { .privacy-note { left: 12px; right: 12px; max-width: none; bottom: calc(108px + env(safe-area-inset-bottom)); } }
+
+/* About page stats strip: long values like "Islandwide" must fit a half-width column on phones */
+.ledger { overflow: hidden; }
+.ledger-cell { min-width: 0; }
+@media (max-width: 699px) { .ledger-cell b { font-size: clamp(22px, 7.4vw, 30px); overflow-wrap: anywhere; } }

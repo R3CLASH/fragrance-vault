@@ -11,6 +11,7 @@ import SmoothScroll from '@/components/SmoothScroll';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
+import PrivacyNotice from '@/components/PrivacyNotice';
 import { getGlobal, getPages, getCategories } from '@/lib/strapi';
 import { SITE_URL } from '@/lib/format';
 
@@ -39,6 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main id="main">{children}</main>
           <Footer logo={logo} global={g} pages={pages} categories={cats} />
           <CartDrawer />
+          <PrivacyNotice />
         </CartProvider>
       </body>
     </html>
