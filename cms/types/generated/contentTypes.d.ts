@@ -863,7 +863,7 @@ export interface ApiPaymentMethodPaymentMethod
     feePercent: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
         {
-          min: 0;
+          min: -100;
         },
         number
       > &
