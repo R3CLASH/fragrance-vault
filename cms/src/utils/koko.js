@@ -9,7 +9,8 @@
  *
  * Credentials live ONLY in the Koko payment method's private `config` JSON in the Strapi admin:
  *   { "merchantId": "...", "apiKey": "...", "privateKey": "-----BEGIN RSA PRIVATE KEY-----...",
- *     "kokoPublicKey": "-----BEGIN PUBLIC KEY-----...", "testCode": "only-while-testMode-is-on" }
+ *     "kokoPublicKey": "-----BEGIN PUBLIC KEY-----...", "testCode": "only-while-testMode-is-on",
+ *     "testForEveryone": true }   ← before launch only: QA gateway for every visitor, labelled "(TEST…)"
  * The payment method's `testMode` switch picks Koko's QA servers (true) or production (false).
  */
 const crypto = require('crypto');
@@ -54,7 +55,7 @@ function credentials(method) {
   const privateKey = readKey(cfg.privateKey, 'private');
   const publicKey = readKey(cfg.kokoPublicKey, 'public');
   const ok = !!(cfg.merchantId && cfg.apiKey && privateKey && publicKey);
-  return { ok, merchantId: cfg.merchantId ? String(cfg.merchantId).trim() : '', apiKey: cfg.apiKey ? String(cfg.apiKey).trim() : '', privateKey, publicKey, testCode: cfg.testCode ? String(cfg.testCode) : '' };
+  return { ok, merchantId: cfg.merchantId ? String(cfg.merchantId).trim() : '', apiKey: cfg.apiKey ? String(cfg.apiKey).trim() : '', privateKey, publicKey, testCode: cfg.testCode ? String(cfg.testCode) : '', testForEveryone: cfg.testForEveryone === true };
 }
 
 /**
@@ -62,6 +63,8 @@ function credentials(method) {
  *  - production keys (testMode off): yes, for everyone
  *  - QA keys (testMode on): only for someone who opened the secret test link (?kokotest=<testCode>),
  *    so live shoppers are never sent to Koko's test system
+ *  - QA keys with "testForEveryone": true: yes, for everyone (only for a site that is not public yet;
+ *    the method is then labelled "(TEST: no real payment)" at checkout so it can't be forgotten at launch)
  * Otherwise Koko stays the manual "we'll send you a payment link" method.
  */
 function useGateway(method, testCode) {
@@ -69,6 +72,7 @@ function useGateway(method, testCode) {
   const c = credentials(method);
   if (!c.ok) return false;
   if (!method.testMode) return true;
+  if (c.testForEveryone) return true;
   if (!c.testCode || typeof testCode !== 'string') return false;
   const a = Buffer.from(testCode), b = Buffer.from(c.testCode);
   return a.length === b.length && crypto.timingSafeEqual(a, b);
@@ -167,4 +171,7 @@ async function orderView(method, kokoOrderId) {
 
 const PAID = ['SUCCESS', 'APPROVED', 'COMPLETED'];
 
-module.exports = { useGateway, credentials, orderForm, orderView, verifyResult, orderNumberOf, readKey, sign, PAID, PLUGIN_NAME, PLUGIN_VERSION };
+/** True when Koko is running on its QA servers for every visitor (pre-launch testing). */
+const openTesting = (method) => !!(method && method.type === 'koko' && method.testMode && credentials(method).ok && credentials(method).testForEveryone);
+
+module.exports = { openTesting, useGateway, credentials, orderForm, orderView, verifyResult, orderNumberOf, readKey, sign, PAID, PLUGIN_NAME, PLUGIN_VERSION };

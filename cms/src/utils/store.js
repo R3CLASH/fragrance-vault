@@ -142,7 +142,9 @@ async function quote(strapi, input = {}) {
     .filter((m) => (num(m.minimumOrder) === null || beforeFee >= num(m.minimumOrder)) && (num(m.maximumOrder) === null || beforeFee <= num(m.maximumOrder)))
     .map((m) => {
       const fee = round((beforeFee * (num(m.feePercent) || 0)) / 100 + (num(m.feeFixed) || 0));
-      return { id: m.documentId, name: m.name, type: m.type, description: m.description, fee, total: round(beforeFee + fee) };
+      // pre-launch Koko testing on Koko's QA servers: make it impossible to miss at checkout
+      const name = koko.openTesting(m) ? `${m.name} (TEST: no real payment)` : m.name;
+      return { id: m.documentId, name, type: m.type, description: m.description, fee, total: round(beforeFee + fee) };
     });
   const pay = paymentMethods.find((m) => m.id === input.paymentMethodId) || paymentMethods[0] || null;
   const fee = pay ? pay.fee : 0;
