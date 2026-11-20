@@ -384,7 +384,14 @@ textarea.field { padding: 12px 14px; min-height: 96px; resize: vertical; }
 }
 
 /* ---------- additions ---------- */
-.announce { position: relative; z-index: 80; padding: 8px 16px; text-align: center; font-size: 13px; letter-spacing: 0.14em; background: var(--metal); color: #0a0804; }
+/* Announcement strip (Strapi → Global → announcement). Pinned to the very top; while it is showing, the
+   floating menu bar and the page move down by its height. Without an announcement nothing changes. */
+.announce { position: fixed; top: 0; left: 0; right: 0; z-index: 69; height: var(--announce-h); display: flex; align-items: center; justify-content: center; padding: 0 16px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: center; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; background: var(--metal); color: #0a0804; }
+body:has(.announce) { --announce-h: 32px; }
+body:has(.announce) #main { padding-top: var(--announce-h); }
+body:has(.announce) .nav-bar { top: calc(14px + var(--announce-h)); }
+body:has(.announce) .nav-top { top: var(--announce-h); }
+@media (max-width: 699px) { .announce { font-size: 10.5px; letter-spacing: 0.08em; } body:has(.announce) { --announce-h: 30px; } }
 .skip:focus { position: fixed; left: 16px; top: 16px; width: auto; height: auto; clip: auto; z-index: 100; padding: 10px 16px; background: var(--gold); color: #0a0804; }
 .btn.disabled { opacity: 0.5; pointer-events: none; }
 .pdp .gallery { position: sticky; top: 96px; }

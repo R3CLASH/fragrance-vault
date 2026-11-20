@@ -54,6 +54,7 @@ module.exports = {
     await adminListViews(strapi);
     if (process.env.SEED_ON_EMPTY !== 'false') await seed(strapi);
     await repriceForKoko(strapi);
+    await announceBankOffer(strapi);
   },
 };
 
@@ -172,6 +173,19 @@ async function repriceForKoko(strapi) {
   });
   await flags.set({ key: 'reprice-koko-2026-11', value: { at: new Date().toISOString(), products, variants } });
   strapi.log.info(`[setup] Prices raised 10% (Koko price) on ${products} product rows and ${variants} variants; bank transfer now 10% off, card hidden.`);
+}
+
+// Top-of-site announcement for the bank transfer offer. Set ONCE, and only if the announcement is
+// empty: after that it belongs to the admin panel (Global → announcement), and clearing it keeps it cleared.
+async function announceBankOffer(strapi) {
+  const flags = strapi.store({ type: 'plugin', name: 'fv-setup' });
+  if (await flags.get({ key: 'announce-bank-offer-2026-11' })) return;
+  const g = await strapi.documents('api::global.global').findFirst();
+  if (g && !String(g.announcement || '').trim()) {
+    await strapi.documents('api::global.global').update({ documentId: g.documentId, data: { announcement: 'Pay by bank transfer and get 10% off every perfume' } });
+    strapi.log.info('[setup] Announcement bar set to the bank transfer offer.');
+  }
+  await flags.set({ key: 'announce-bank-offer-2026-11', value: { at: new Date().toISOString() } });
 }
 
 async function seed(strapi) {
