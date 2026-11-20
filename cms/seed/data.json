@@ -1323,7 +1323,7 @@
    "name": "Bank transfer",
    "type": "bank_transfer",
    "description": "Pay by direct bank transfer. Your order ships once the payment reaches us.",
-   "instructions": "Transfer the order total to:\n\n**Bank:** [YOUR BANK]\n**Account name:** [ACCOUNT NAME]\n**Account number:** [ACCOUNT NUMBER]\n**Branch:** [BRANCH]\n\nUse your order number as the payment reference and send the slip to us on WhatsApp.",
+   "instructions": "Transfer the order total to:\n\n**Account name:** Dinuka Gunawardana\n**Bank:** Sampath Bank\n**Branch:** Piliyandala\n**Account number:** 101955248514\n\nUse your order number as the payment reference and send the slip to us on WhatsApp.",
    "feePercent": 0,
    "sortOrder": 1,
    "enabled": true

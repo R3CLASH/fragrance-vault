@@ -50,6 +50,7 @@ module.exports = {
   async bootstrap({ strapi }) {
     await grantPublicRead(strapi);
     await lockPublicAuth(strapi);
+    await fillBankDetails(strapi);
     await adminListViews(strapi);
     if (process.env.SEED_ON_EMPTY !== 'false') await seed(strapi);
   },
@@ -77,6 +78,18 @@ async function lockPublicAuth(strapi) {
   if (adv.allow_register !== false) await ups.set({ key: 'advanced', value: { ...adv, allow_register: false } });
   const role = await strapi.db.query('plugin::users-permissions.role').findOne({ where: { type: 'public' } });
   if (role) await strapi.db.query('plugin::users-permissions.permission').deleteMany({ where: { role: role.id, action: { $in: PUBLIC_AUTH_OFF } } });
+}
+
+// The bank transfer method was first created with placeholder text ([YOUR BANK] etc.). Fill in the real
+// account once; if the text has already been edited in the admin panel, it is left exactly as it is.
+const BANK_INSTRUCTIONS = "Transfer the order total to:\n\n**Account name:** Dinuka Gunawardana\n**Bank:** Sampath Bank\n**Branch:** Piliyandala\n**Account number:** 101955248514\n\nUse your order number as the payment reference and send the slip to us on WhatsApp.";
+async function fillBankDetails(strapi) {
+  const rows = await strapi.documents('api::payment-method.payment-method').findMany({ filters: { type: 'bank_transfer' }, limit: 10 });
+  for (const m of rows) {
+    if (!/\[(YOUR BANK|ACCOUNT NAME|ACCOUNT NUMBER|BRANCH)\]/.test(m.instructions || '')) continue;
+    await strapi.documents('api::payment-method.payment-method').update({ documentId: m.documentId, data: { instructions: BANK_INSTRUCTIONS } });
+    strapi.log.info('[setup] Bank transfer details filled in (replaced placeholder text).');
+  }
 }
 
 const LABELS = { orderNumber: 'Order', orderStatus: 'Status', paymentStatus: 'Payment', total: 'Total (LKR)', customerEmail: 'Customer', createdAt: 'Date', salePrice: 'Sale price', feePercent: 'Fee %', freeOver: 'Free over (LKR)', usedCount: 'Times used', expiresAt: 'Expires', sortOrder: 'Order in list' };
