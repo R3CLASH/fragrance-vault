@@ -142,7 +142,7 @@ export default function Checkout() {
                 <label key={m.id} className={`opt ${paymentId === m.id ? 'on' : ''}`}>
                   <input type="radio" name="pay" checked={paymentId === m.id} onChange={() => setPaymentId(m.id)} />
                   <div><b>{m.name}</b><small>{m.description}</small></div>
-                  <em>{m.fee ? `+ ${money(m.fee)}` : ''}</em>
+                  <em className={m.fee < 0 ? 'save' : undefined}>{m.fee > 0 ? `+ ${money(m.fee)}` : m.fee < 0 ? `${m.percent ? `${-m.percent}% off · ` : ''}− ${money(-m.fee)}` : ''}</em>
                 </label>
               )) || <p className="hint">Loading payment options…</p>}
             </section>
@@ -169,7 +169,9 @@ export default function Checkout() {
                 <div><span>Subtotal</span><span>{quote ? money(quote.subtotal) : '…'}</span></div>
                 {quote?.discount ? <div><span>Discount</span><span>− {money(quote.discount)}</span></div> : null}
                 <div><span>Delivery</span><span>{quote ? (quote.shipping ? money(quote.shipping) : 'Free') : '…'}</span></div>
-                {quote?.fee ? <div><span>Payment fee</span><span>{money(quote.fee)}</span></div> : null}
+                {quote?.fee ? (quote.fee < 0
+                  ? <div className="save"><span>{quote.paymentMethods.find((m) => m.id === paymentId)?.name || 'Payment'} discount</span><span>− {money(-quote.fee)}</span></div>
+                  : <div><span>Payment fee</span><span>{money(quote.fee)}</span></div>) : null}
                 <div className="grand"><span>Total</span><b>{quote ? money(quote.total) : '…'}</b></div>
               </div>
               <button className="btn btn-gold btn-block" type="submit" disabled={busy || !quote || !!quote.problems.length || !paymentId}>{busy ? 'Sealing your order…' : 'Place order'}</button>

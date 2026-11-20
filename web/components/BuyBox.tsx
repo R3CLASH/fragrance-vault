@@ -9,7 +9,7 @@ import ProductStage from './ProductStage';
 
 const TINTS = ['#FFC46B', '#8FE0C0', '#8FD0F0'];
 
-export default function BuyBox({ p }: { p: Product }) {
+export default function BuyBox({ p, offer = null }: { p: Product; offer?: { name: string; percent: number } | null }) {
   const { add } = useCart();
   const [variant, setVariant] = useState<number>(p.variants.length ? 0 : -1);
   const [qty, setQty] = useState(1);
@@ -47,6 +47,11 @@ export default function BuyBox({ p }: { p: Product }) {
           {sale !== null ? <s>{money(regular)}</s> : null}
           <span className="hint">{[p.concentration, p.size].filter(Boolean).join(' · ')}</span>
         </div>
+        {offer && offer.percent > 0 ? (
+          <p className="pdp-offer">
+            <b>{money(Math.round(now * (100 - offer.percent)) / 100)}</b> with {offer.name.toLowerCase()} <span>({offer.percent}% off)</span>
+          </p>
+        ) : null}
 
         {p.variants.length ? (
           <div className="group">

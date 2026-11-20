@@ -5,7 +5,7 @@ import { marked } from 'marked';
 import BuyBox from '@/components/BuyBox';
 import ProductCard from '@/components/ProductCard';
 import { Drawers } from '@/components/Motion';
-import { getProduct, getProducts } from '@/lib/strapi';
+import { getPaymentMethods, getProduct, getProducts } from '@/lib/strapi';
 import { SITE_URL } from '@/lib/format';
 
 export const revalidate = 30;
@@ -28,6 +28,9 @@ export default async function ProductPage({ params }: { params: P }) {
   if (!p) notFound();
   const pool = p.brand ? await getProducts({ brand: p.brand.slug, limit: 8 }) : await getProducts({ limit: 8 });
   const related = pool.filter((x) => x.id !== p.id).slice(0, 3);
+  // payment offers (e.g. bank transfer 10% off) are shown under the price
+  const bank = (await getPaymentMethods()).find((m) => m.type === 'bank_transfer' && m.feePercent < 0);
+  const offer = bank ? { name: bank.name, percent: -bank.feePercent } : null;
   const html = p.description && p.description !== p.shortDescription ? await marked.parse(p.description) : null;
   const ld = {
     '@context': 'https://schema.org', '@type': 'Product', name: p.name, sku: p.sku || undefined,
@@ -46,7 +49,7 @@ export default async function ProductPage({ params }: { params: P }) {
           {p.brand ? <><Link href={`/shop?brand=${p.brand.slug}`}>{p.brand.name}</Link><span aria-hidden="true">/</span></> : null}
           <span style={{ color: 'var(--ink)' }}>{p.name}</span>
         </nav>
-        <div className="pdp"><BuyBox p={p} /></div>
+        <div className="pdp"><BuyBox p={p} offer={offer} /></div>
         <div className="acc" style={{ maxWidth: 760, marginBottom: 80 }}>
           {html ? <details open><summary>About this scent</summary><div className="prose" dangerouslySetInnerHTML={{ __html: html }} /></details> : null}
           <details open={!html}><summary>Delivery</summary><div className="prose"><p>Secure insured shipping islandwide. You will get an email at every step, with a link to follow your order.</p></div></details>

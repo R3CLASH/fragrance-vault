@@ -141,10 +141,13 @@ async function quote(strapi, input = {}) {
   const paymentMethods = payRows
     .filter((m) => (num(m.minimumOrder) === null || beforeFee >= num(m.minimumOrder)) && (num(m.maximumOrder) === null || beforeFee <= num(m.maximumOrder)))
     .map((m) => {
-      const fee = round((beforeFee * (num(m.feePercent) || 0)) / 100 + (num(m.feeFixed) || 0));
+      const pct = num(m.feePercent) || 0;
+      // a negative percentage is an offer (e.g. bank transfer 10% off): it applies to the products, not to delivery
+      const basis = pct < 0 ? round(subtotal - discount) : beforeFee;
+      const fee = round((basis * pct) / 100 + (num(m.feeFixed) || 0));
       // pre-launch Koko testing on Koko's QA servers: make it impossible to miss at checkout
       const name = koko.openTesting(m) ? `${m.name} (TEST: no real payment)` : m.name;
-      return { id: m.documentId, name, type: m.type, description: m.description, fee, total: round(beforeFee + fee) };
+      return { id: m.documentId, name, type: m.type, description: m.description, fee, percent: pct, total: round(beforeFee + fee) };
     });
   const pay = paymentMethods.find((m) => m.id === input.paymentMethodId) || paymentMethods[0] || null;
   const fee = pay ? pay.fee : 0;

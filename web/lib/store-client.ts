@@ -7,7 +7,7 @@ export type Quote = {
   subtotal: number; discount: number; shipping: number; fee: number; total: number;
   shippingMethodId: string | null; paymentMethodId: string | null;
   shippingMethods: { id: string; name: string; description: string | null; estimatedDays: string | null; cost: number }[];
-  paymentMethods: { id: string; name: string; type: string; description: string | null; fee: number; total: number }[];
+  paymentMethods: { id: string; name: string; type: string; description: string | null; fee: number; percent?: number; total: number }[];
 };
 
 export async function post<T>(path: string, body: unknown): Promise<{ ok: boolean; data: T | null; error: string | null; details?: any }> {

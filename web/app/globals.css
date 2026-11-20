@@ -555,3 +555,9 @@ textarea.field { padding: 12px 14px; min-height: 96px; resize: vertical; }
 .ledger { overflow: hidden; }
 .ledger-cell { min-width: 0; }
 @media (max-width: 699px) { .ledger-cell b { font-size: clamp(22px, 7.4vw, 30px); overflow-wrap: anywhere; } }
+
+/* Payment offers (bank transfer 10% off): shown under the product price and in the checkout totals */
+.pdp-offer { margin: -6px 0 0; font-size: 15px; color: var(--mute); }
+.pdp-offer b { font-family: var(--display); font-weight: 500; font-size: 20px; color: #8fd9a8; margin-right: 4px; }
+.pdp-offer span { color: #8fd9a8; letter-spacing: 0.04em; }
+.opt em.save, .totals .save span:last-child { color: #8fd9a8; font-style: normal; }

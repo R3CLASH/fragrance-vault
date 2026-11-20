@@ -53,6 +53,7 @@ module.exports = {
     await fillBankDetails(strapi);
     await adminListViews(strapi);
     if (process.env.SEED_ON_EMPTY !== 'false') await seed(strapi);
+    await repriceForKoko(strapi);
   },
 };
 
@@ -138,6 +139,39 @@ async function upload(strapi, file, alt) {
     files: { filepath: full, originalFilename: file, mimetype: ext === 'png' ? 'image/png' : `image/${ext}`, size: stat.size },
   });
   return up;
+}
+
+/**
+ * November 2026 pricing change, applied ONCE (a saved flag stops it ever running again):
+ * the shown price becomes the Koko price = previous price + 10%, and offers replace payment fees.
+ *  - every product price / sale price / variant price × 1.10 (rounded to the rupee)
+ *  - Bank transfer: 10% off the products (feePercent -10)
+ *  - Koko and Payzy: no extra fee any more (it is now inside the shown price)
+ *  - Credit / debit card: hidden for now (enabled = false)
+ */
+const PRICE_FACTOR = 1.1;
+async function repriceForKoko(strapi) {
+  const flags = strapi.store({ type: 'plugin', name: 'fv-setup' });
+  if (await flags.get({ key: 'reprice-koko-2026-11' })) return;
+  const up = (v) => (v === null || v === undefined || v === '' ? v : Math.round(Number(v) * PRICE_FACTOR));
+  let products = 0, variants = 0;
+  await strapi.db.transaction(async () => {
+    // all rows, draft and published copies alike, so both stay in step
+    for (const r of await strapi.db.query('api::product.product').findMany({ select: ['id', 'price', 'salePrice'] })) {
+      await strapi.db.query('api::product.product').update({ where: { id: r.id }, data: { price: up(r.price), salePrice: up(r.salePrice) } });
+      products++;
+    }
+    for (const r of await strapi.db.query('product.variant').findMany({ select: ['id', 'price', 'salePrice'] })) {
+      await strapi.db.query('product.variant').update({ where: { id: r.id }, data: { price: up(r.price), salePrice: up(r.salePrice) } });
+      variants++;
+    }
+    const pm = 'api::payment-method.payment-method';
+    await strapi.db.query(pm).updateMany({ where: { type: 'bank_transfer' }, data: { feePercent: -10, feeFixed: 0 } });
+    await strapi.db.query(pm).updateMany({ where: { type: { $in: ['koko', 'payzy'] } }, data: { feePercent: 0, feeFixed: 0 } });
+    await strapi.db.query(pm).updateMany({ where: { type: 'payhere' }, data: { enabled: false } });
+  });
+  await flags.set({ key: 'reprice-koko-2026-11', value: { at: new Date().toISOString(), products, variants } });
+  strapi.log.info(`[setup] Prices raised 10% (Koko price) on ${products} product rows and ${variants} variants; bank transfer now 10% off, card hidden.`);
 }
 
 async function seed(strapi) {

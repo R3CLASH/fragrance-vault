@@ -106,7 +106,8 @@ async function main() {
       const short = stripHtml(p.short_description).slice(0, 600);
       const data = {
         name: stripHtml(p.name), slug: p.slug, sku: p.sku || `FV-${p.id}`, wooId: p.id,
-        price: regular, salePrice: sale && sale < regular ? sale : null,
+        // shop prices are the Koko price = WordPress price + 10% (bank transfer gets 10% off at checkout)
+        price: Math.round(regular * 1.1), salePrice: sale && sale < regular ? Math.round(sale * 1.1) : null,
         saleStartsAt: p.date_on_sale_from || null, saleEndsAt: p.date_on_sale_to || null,
         shortDescription: short, description: p.description || p.short_description || '',
         gender, ...(imgs.length ? { images: imgs } : {}),

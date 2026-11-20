@@ -38,7 +38,7 @@
     "feePercent": {
       "type": "decimal",
       "default": 0,
-      "min": 0
+      "min": -100
     },
     "feeFixed": {
       "type": "decimal",

@@ -99,7 +99,9 @@ export default function OrderView({ o, fresh }: { o: PublicOrder; fresh?: boolea
             <div><span>Subtotal</span><span>{money(o.subtotal)}</span></div>
             {o.discount ? <div><span>Discount{o.couponCode ? ` (${o.couponCode})` : ''}</span><span>− {money(o.discount)}</span></div> : null}
             <div><span>Delivery</span><span>{o.shipping ? money(o.shipping) : 'Free'}</span></div>
-            {o.fee ? <div><span>Payment fee</span><span>{money(o.fee)}</span></div> : null}
+            {o.fee ? (o.fee < 0
+              ? <div className="save"><span>{o.paymentMethod} discount</span><span>− {money(-o.fee)}</span></div>
+              : <div><span>Payment fee</span><span>{money(o.fee)}</span></div>) : null}
             <div className="grand"><span>Total</span><b>{money(o.total)}</b></div>
           </div>
           <div className="kv">
