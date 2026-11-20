@@ -36,11 +36,25 @@ module.exports = factories.createCoreController('api::order.order', ({ strapi })
       if (token && o.orderStatus === 'pending_payment' && o.paymentMethodType === 'payhere') {
         const pm = await strapi.documents('api::payment-method.payment-method').findMany({ filters: { type: 'payhere', enabled: true }, limit: 1 });
         if (pm[0]) out.payment = await store.paymentStep(strapi, o, pm[0].documentId);
+      } else if (token && o.orderStatus === 'pending_payment' && o.paymentMethodType === 'koko') {
+        const pm = await strapi.documents('api::payment-method.payment-method').findMany({ filters: { type: 'koko', enabled: true }, limit: 1 });
+        if (pm[0]) out.payment = await store.paymentStep(strapi, o, pm[0].documentId, { kokoGateway: true });
       } else if (token && ['bank_transfer', 'koko', 'payzy', 'manual'].includes(o.paymentMethodType) && o.paymentStatus !== 'paid') {
         const pm = await strapi.documents('api::payment-method.payment-method').findMany({ filters: { type: o.paymentMethodType }, limit: 1 });
         if (pm[0]) out.payment = { type: pm[0].type, name: pm[0].name, instructions: pm[0].instructions || null };
       }
       ctx.body = out;
+    } catch (e) { fail(ctx, e, strapi); }
+  },
+
+  async kokoNotify(ctx) {
+    try { ctx.body = await store.kokoNotify(strapi, ctx.request.body || {}); } catch (e) { fail(ctx, e, strapi); }
+  },
+
+  async kokoReturn(ctx) {
+    try {
+      const { orderNumber, token, kokoOrderId } = ctx.request.body || {};
+      ctx.body = await store.kokoReturn(strapi, { orderNumber: String(orderNumber || ''), token, kokoOrderId: kokoOrderId ? String(kokoOrderId) : '' });
     } catch (e) { fail(ctx, e, strapi); }
   },
 

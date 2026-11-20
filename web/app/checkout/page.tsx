@@ -33,6 +33,15 @@ export default function Checkout() {
   const payForm = useRef<HTMLFormElement>(null);
   // Saving the customer's details on this device is opt-in (personal data); it stays ticked for people who chose it before.
   const [remember, setRemember] = useState(false);
+  // Secret test link for the Koko gateway while it runs on Koko's QA keys: /checkout?kokotest=CODE
+  const [testCode, setTestCode] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    try {
+      const fromUrl = new URLSearchParams(window.location.search).get('kokotest');
+      if (fromUrl) sessionStorage.setItem('fv-kokotest', fromUrl.slice(0, 80));
+      setTestCode(sessionStorage.getItem('fv-kokotest') || undefined);
+    } catch { /* ignore */ }
+  }, []);
 
   const cart = useMemo(() => items.map((i) => ({ id: i.id, variant: i.variant, quantity: i.qty })), [items]);
 
@@ -84,7 +93,7 @@ export default function Checkout() {
     try { if (remember) localStorage.setItem('fv-checkout', JSON.stringify({ email, bill })); else localStorage.removeItem('fv-checkout'); } catch { /* ignore */ }
     const r = await post<Placed>('/api/checkout', {
       items: cart, email, billing: bill, shipToDifferentAddress: diff, shipping: diff ? ship : undefined, note,
-      couponCode: coupon && quote?.coupon?.valid ? coupon : undefined, shippingMethodId: shippingId, paymentMethodId: paymentId,
+      couponCode: coupon && quote?.coupon?.valid ? coupon : undefined, shippingMethodId: shippingId, paymentMethodId: paymentId, testCode,
     });
     if (!r.ok || !r.data) { setError(r.error); setBusy(false); scrollToY(0); return; }
     clear();

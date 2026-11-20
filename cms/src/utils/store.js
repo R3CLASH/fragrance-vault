@@ -4,6 +4,7 @@
  * The storefront never sends prices; it only sends product IDs and quantities.
  */
 const crypto = require('crypto');
+const koko = require('./koko');
 
 const PRODUCT = 'api::product.product';
 const ORDER = 'api::order.order';
@@ -211,7 +212,10 @@ async function placeOrder(strapi, input = {}, meta = {}) {
   const ship = q.shippingMethods.find((s) => s.id === input.shippingMethodId) || q.shippingMethods[0];
   if (!ship && q.shippingMethods.length) throw new StoreError('Please choose a delivery method.');
 
-  const status = STATUS_FOR[pay.type] || 'on_hold';
+  const method = await strapi.documents(PAYMENT).findOne({ documentId: pay.id });
+  const kokoGateway = koko.useGateway(method, input.testCode);
+  // a real Koko payment waits for Koko's confirmation; manual Koko (payment link sent by you) stays on hold
+  const status = kokoGateway ? 'pending_payment' : (STATUS_FOR[pay.type] || 'on_hold');
   const accessToken = crypto.randomBytes(18).toString('hex');
   let number = orderNumber();
   for (let i = 0; i < 5 && (await strapi.documents(ORDER).count({ filters: { orderNumber: number } })); i++) number = orderNumber();
@@ -240,15 +244,69 @@ async function placeOrder(strapi, input = {}, meta = {}) {
   });
 
   sendOrderEmails(strapi, order, 'placed').catch((e) => strapi.log.warn(`Order email failed: ${e.message}`));
-  return { order, payment: await paymentStep(strapi, order, pay.id) };
+  return { order, payment: await paymentStep(strapi, order, pay.id, { kokoGateway }) };
 }
 
 /** What the customer must do next to pay. */
-async function paymentStep(strapi, order, paymentMethodId) {
+async function paymentStep(strapi, order, paymentMethodId, opts = {}) {
   const m = await strapi.documents(PAYMENT).findOne({ documentId: paymentMethodId });
   const step = { type: m.type, name: m.name, instructions: m.instructions || null };
   if (m.type === 'payhere') step.redirect = payhereForm(strapi, order, m);
+  if (m.type === 'koko' && opts.kokoGateway) {
+    const full = order.items ? order : await findOrder(strapi, { orderNumber: order.orderNumber });
+    const f = koko.orderForm(m, full, { site: siteUrl(), api: apiUrl() });
+    if (f) { step.redirect = f.redirect; step.instructions = null; }
+  }
   return step;
+}
+
+const siteUrl = () => (process.env.STOREFRONT_URL || 'http://localhost:3000').replace(/\/$/, '');
+const apiUrl = () => (process.env.PUBLIC_URL || 'http://localhost:1337').replace(/\/$/, '');
+
+// ---------- Koko (Buy Now Pay Later) ----------
+async function kokoMethod(strapi) {
+  const rows = await strapi.documents(PAYMENT).findMany({ filters: { type: 'koko' }, limit: 1 });
+  return rows[0] || null;
+}
+
+async function markKokoPaid(strapi, order, kokoOrderId, trnId, how) {
+  if (order.paymentStatus === 'paid') return false;
+  await updateOrder(strapi, order,
+    { orderStatus: 'processing', paymentStatus: 'paid', paidAt: new Date(), transactionId: String(trnId || ''), paymentReference: String(kokoOrderId) },
+    `Payment received through Koko (${how}). Koko transaction ${trnId || 'n/a'}.`, 'koko');
+  return true;
+}
+
+/** Koko's server-to-server confirmation (_responseUrl). Only a correctly signed message is acted on. */
+async function kokoNotify(strapi, body = {}) {
+  const method = await kokoMethod(strapi);
+  if (!method || !koko.credentials(method).ok) throw new StoreError('Koko is not configured', 503);
+  const msg = { orderId: String(body.orderId || ''), trnId: String(body.trnId || ''), status: String(body.status || ''), desc: String(body.desc || ''), signature: String(body.signature || '') };
+  if (!koko.verifyResult(method, msg)) throw new StoreError('Signature mismatch', 401);
+  const order = await findOrder(strapi, { orderNumber: koko.orderNumberOf(msg.orderId) });
+  if (!order || order.paymentMethodType !== 'koko') throw new StoreError('Unknown order', 404);
+  if (koko.PAID.includes(msg.status.toUpperCase())) await markKokoPaid(strapi, order, msg.orderId, msg.trnId, 'signed confirmation');
+  return { ok: true };
+}
+
+/**
+ * The customer is back from Koko. The browser's word is never trusted on its own: we ask Koko's
+ * orderView API (signed request, HTTPS) whether that attempt was paid.
+ */
+async function kokoReturn(strapi, { orderNumber, token, kokoOrderId }) {
+  const order = await findOrder(strapi, { orderNumber, token: String(token || '') });
+  if (!order) throw new StoreError('We could not find that order.', 404);
+  const result = { orderNumber: order.orderNumber, token: order.accessToken, paid: order.paymentStatus === 'paid' };
+  if (result.paid || order.paymentMethodType !== 'koko') return result;
+  // only check attempts that really belong to this order
+  if (!kokoOrderId || koko.orderNumberOf(kokoOrderId) !== order.orderNumber) return result;
+  const method = await kokoMethod(strapi);
+  const view = method && (await koko.orderView(method, String(kokoOrderId)));
+  if (view && koko.PAID.includes(view.status)) {
+    await markKokoPaid(strapi, order, kokoOrderId, view.trnId, 'confirmed with Koko orderView');
+    result.paid = true;
+  }
+  return result;
 }
 
 // ---------- PayHere (Sri Lanka card / wallet gateway) ----------
@@ -361,4 +419,4 @@ ${full.trackingNumber ? `<p>Tracking: ${esc(full.courier || '')} ${esc(full.trac
 }
 const esc = (s) => String(s || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-module.exports = { StoreError, quote, placeOrder, findOrder, publicOrder, payhereNotify, paymentStep, adjustOrderStock, sendOrderEmails, unitPrice, round };
+module.exports = { StoreError, quote, placeOrder, findOrder, publicOrder, payhereNotify, kokoNotify, kokoReturn, paymentStep, adjustOrderStock, sendOrderEmails, unitPrice, round };

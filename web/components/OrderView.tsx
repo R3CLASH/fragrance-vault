@@ -55,8 +55,8 @@ export default function OrderView({ o, fresh }: { o: PublicOrder; fresh?: boolea
             {o.payment.redirect ? (
               <form method="post" action={o.payment.redirect.url}>
                 {Object.entries(o.payment.redirect.fields).map(([k, v]) => <input key={k} type="hidden" name={k} value={v} />)}
-                <p className="lead">Your card payment has not gone through yet.</p>
-                <button className="btn btn-gold" type="submit">Pay {money(o.total)} now</button>
+                <p className="lead">{o.paymentType === 'koko' ? 'Your Koko payment has not been completed yet. You can try again below.' : 'Your card payment has not gone through yet.'}</p>
+                <button className="btn btn-gold" type="submit">{o.paymentType === 'koko' ? `Pay ${money(o.total)} with Koko` : `Pay ${money(o.total)} now`}</button>
               </form>
             ) : instructions ? (
               <div className="prose" dangerouslySetInnerHTML={{ __html: instructions }} />

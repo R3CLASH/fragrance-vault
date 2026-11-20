@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 // Everything the site loads comes from its own origin (fonts are self-hosted, CMS images go through /media).
-// The only outside destination is the PayHere card page, which the checkout form posts to.
+// The only outside destinations are the PayHere and Koko payment pages, which the checkout form posts to.
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'", // Next.js inlines its page data; no outside scripts are allowed
@@ -12,7 +12,9 @@ const csp = [
   "media-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self' https://www.payhere.lk https://sandbox.payhere.lk",
+  // Koko's orderCreate answers with a redirect to Koko's own payment page, and browsers apply this rule to
+  // that redirect too, so each gateway's whole domain is allowed (still nothing outside PayHere and Koko)
+  "form-action 'self' https://payhere.lk https://*.payhere.lk https://paykoko.com https://*.paykoko.com",
   "frame-ancestors 'none'",
   'upgrade-insecure-requests',
 ].join('; ');
