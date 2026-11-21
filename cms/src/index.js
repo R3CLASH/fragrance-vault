@@ -55,6 +55,7 @@ module.exports = {
     if (process.env.SEED_ON_EMPTY !== 'false') await seed(strapi);
     await repriceForKoko(strapi);
     await announceBankOffer(strapi);
+    await logKokoStatus(strapi);
   },
 };
 
@@ -186,6 +187,12 @@ async function announceBankOffer(strapi) {
     strapi.log.info('[setup] Announcement bar set to the bank transfer offer.');
   }
   await flags.set({ key: 'announce-bank-offer-2026-11', value: { at: new Date().toISOString() } });
+}
+
+// Say in the Railway logs where Koko's keys come from and whether they work (never prints a key).
+async function logKokoStatus(strapi) {
+  const rows = await strapi.documents('api::payment-method.payment-method').findMany({ filters: { type: 'koko' }, limit: 1 });
+  if (rows[0]) strapi.log.info(require('./utils/koko').describe(rows[0]));
 }
 
 async function seed(strapi) {

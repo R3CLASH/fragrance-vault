@@ -7,7 +7,10 @@
  * Koko's server POSTs a signed result to our _responseUrl (the real confirmation) and the customer's
  * browser comes back to _returnUrl, where we also ask Koko's orderView API for the status.
  *
- * Credentials live ONLY in the Koko payment method's private `config` JSON in the Strapi admin:
+ * Credentials come from Railway variables on the cms service (preferred), which take precedence:
+ *   KOKO_MODE=test|live  KOKO_MERCHANT_ID  KOKO_API_KEY  KOKO_PRIVATE_KEY  KOKO_PUBLIC_KEY
+ *   KOKO_TEST_CODE (optional)  KOKO_TEST_FOR_EVERYONE=true (optional, pre-launch only)
+ * If none are set, they fall back to the Koko payment method's private `config` JSON in the Strapi admin:
  *   { "merchantId": "...", "apiKey": "...", "privateKey": "-----BEGIN RSA PRIVATE KEY-----...",
  *     "kokoPublicKey": "-----BEGIN PUBLIC KEY-----...", "testCode": "only-while-testMode-is-on",
  *     "testForEveryone": true }   ← before launch only: QA gateway for every visitor, labelled "(TEST…)"
@@ -23,10 +26,35 @@ const HOSTS = { qa: 'https://qaapi.paykoko.com', prod: 'https://prodapi.paykoko.
 // form fields, so every value is flattened to a single line first (or the signature would not match).
 const flat = (v, max = 120) => String(v === null || v === undefined ? '' : v).replace(/\s+/g, ' ').trim().slice(0, max);
 
-function base(method) {
+const env = process.env;
+const yes = (v) => /^(1|true|yes|on)$/i.test(String(v || '').trim());
+/** Are the Koko keys set as Railway variables? Then they win over anything stored in Strapi. */
+const fromEnv = () => !!(env.KOKO_MERCHANT_ID || env.KOKO_API_KEY || env.KOKO_PRIVATE_KEY);
+
+/** Where the keys and settings come from: Railway variables, else the Strapi payment method config. */
+function settings(method) {
+  if (fromEnv()) {
+    return {
+      source: 'railway', merchantId: env.KOKO_MERCHANT_ID, apiKey: env.KOKO_API_KEY, privateKey: env.KOKO_PRIVATE_KEY,
+      kokoPublicKey: env.KOKO_PUBLIC_KEY, testCode: env.KOKO_TEST_CODE, testForEveryone: yes(env.KOKO_TEST_FOR_EVERYONE), baseUrl: env.KOKO_BASE_URL,
+    };
+  }
   const cfg = (method && method.config) || {};
+  return { source: 'strapi', ...cfg, testForEveryone: cfg.testForEveryone === true };
+}
+
+/** Test (Koko QA servers) or live? KOKO_MODE in Railway decides; otherwise the method's testMode switch in Strapi. */
+function isTest(method) {
+  const mode = String(env.KOKO_MODE || '').trim().toLowerCase();
+  if (mode === 'test' || mode === 'qa') return true;
+  if (mode === 'live' || mode === 'prod' || mode === 'production') return false;
+  return !!(method && method.testMode);
+}
+
+function base(method) {
+  const cfg = settings(method);
   if (cfg.baseUrl) return String(cfg.baseUrl).replace(/\/$/, ''); // only for local testing against a mock; leave unset
-  return method && method.testMode ? HOSTS.qa : HOSTS.prod;
+  return isTest(method) ? HOSTS.qa : HOSTS.prod;
 }
 
 /**
@@ -35,7 +63,8 @@ function base(method) {
  */
 function readKey(raw, kind) {
   if (!raw || typeof raw !== 'string') return null;
-  const body = raw.replace(/-----[A-Z ]+-----/g, '').replace(/[^A-Za-z0-9+/=]/g, '');
+  // keys pasted into a Railway variable often carry literal "\n" instead of line breaks
+  const body = raw.replace(/\\n/g, '\n').replace(/-----[A-Z ]+-----/g, '').replace(/[^A-Za-z0-9+/=]/g, '');
   if (!body) return null;
   const der = Buffer.from(body, 'base64');
   const tries = kind === 'private' ? ['pkcs1', 'pkcs8'] : ['spki', 'pkcs1'];
@@ -51,11 +80,11 @@ function readKey(raw, kind) {
 
 /** Is everything needed to talk to Koko present and readable? */
 function credentials(method) {
-  const cfg = (method && method.config) || {};
+  const cfg = settings(method);
   const privateKey = readKey(cfg.privateKey, 'private');
   const publicKey = readKey(cfg.kokoPublicKey, 'public');
   const ok = !!(cfg.merchantId && cfg.apiKey && privateKey && publicKey);
-  return { ok, merchantId: cfg.merchantId ? String(cfg.merchantId).trim() : '', apiKey: cfg.apiKey ? String(cfg.apiKey).trim() : '', privateKey, publicKey, testCode: cfg.testCode ? String(cfg.testCode) : '', testForEveryone: cfg.testForEveryone === true };
+  return { ok, source: cfg.source, merchantId: cfg.merchantId ? String(cfg.merchantId).trim() : '', apiKey: cfg.apiKey ? String(cfg.apiKey).trim() : '', privateKey, publicKey, testCode: cfg.testCode ? String(cfg.testCode).trim() : '', testForEveryone: cfg.testForEveryone === true };
 }
 
 /**
@@ -71,7 +100,7 @@ function useGateway(method, testCode) {
   if (!method || method.type !== 'koko') return false;
   const c = credentials(method);
   if (!c.ok) return false;
-  if (!method.testMode) return true;
+  if (!isTest(method)) return true;
   if (c.testForEveryone) return true;
   if (!c.testCode || typeof testCode !== 'string') return false;
   const a = Buffer.from(testCode), b = Buffer.from(c.testCode);
@@ -172,6 +201,16 @@ async function orderView(method, kokoOrderId) {
 const PAID = ['SUCCESS', 'APPROVED', 'COMPLETED'];
 
 /** True when Koko is running on its QA servers for every visitor (pre-launch testing). */
-const openTesting = (method) => !!(method && method.type === 'koko' && method.testMode && credentials(method).ok && credentials(method).testForEveryone);
+const openTesting = (method) => !!(method && method.type === 'koko' && isTest(method) && credentials(method).ok && credentials(method).testForEveryone);
 
-module.exports = { openTesting, useGateway, credentials, orderForm, orderView, verifyResult, orderNumberOf, readKey, sign, PAID, PLUGIN_NAME, PLUGIN_VERSION };
+/** One line for the startup log: where Koko's keys come from and whether they work (never prints a key). */
+function describe(method) {
+  const c = credentials(method), s = settings(method);
+  const missing = [['merchant ID', c.merchantId], ['API key', c.apiKey], ['private key', c.privateKey], ['Koko public key', c.publicKey]].filter(([, v]) => !v).map(([n]) => n);
+  const where = c.source === 'railway' ? 'Railway variables' : 'Strapi config';
+  if (!c.ok) return `[koko] keys from ${where}: NOT READY (${missing.length ? `missing or unreadable: ${missing.join(', ')}` : 'check values'}) → Koko stays the manual method.`;
+  const mode = isTest(method) ? `TEST (Koko QA)${c.testForEveryone ? ', for every visitor' : c.testCode ? ', secret test link only' : ', no test link set → manual for everyone'}` : 'LIVE';
+  return `[koko] keys from ${where}: ready, ${mode}${method && method.enabled === false ? ' — but the payment method is switched off in Strapi' : ''}${s.baseUrl ? ` (base URL override ${s.baseUrl})` : ''}.`;
+}
+
+module.exports = { describe, isTest, openTesting, useGateway, credentials, orderForm, orderView, verifyResult, orderNumberOf, readKey, sign, PAID, PLUGIN_NAME, PLUGIN_VERSION };
